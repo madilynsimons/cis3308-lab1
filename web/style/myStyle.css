@@ -23,6 +23,7 @@ body{
 }
 
 #nav a {
+    font-family: Verdana, Geneva, sans-serif; 
     text-decoration: none;
     color: white;
 }
