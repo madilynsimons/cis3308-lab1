@@ -34,8 +34,24 @@ body{
     font-style: italic;
     font-family: Verdana, Geneva, sans-serif; 
     letter-spacing: 2.5px;
-    float: left;
+    float: left;   
+}
+
+#titleNav{
+    position:fixed; 
+    top:0px;
+    left:0px;
+    z-index: 1;
     
+    width: 100%;     
+
+    background-color: rgb(2, 61, 118);
+
+    padding-bottom: 10px; 
+    color: white; 
+    font-family: serif;  
+    font-weight: bold;
+    min-width: 500px;
 }
 
 #footer { 
