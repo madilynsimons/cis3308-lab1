@@ -7,19 +7,47 @@ and open the template in the editor.
 <html>
     <head>
         <title>Quads PA</title>
-        <link href="style/titleStyle.css" rel="stylesheet" type="text/css" />  
-        <link href="style/_dropdownStyle.css" rel="stylesheet" type="text/css" />
+        
+        <link href="style/titleStyle.css" rel="stylesheet" type="text/css" /> 
+        <link href="style/dropdownStyle.css" rel="stylesheet" type="text/css" /> 
+
     </head>
     <body>
-        <div id="title"> TITLE </div>
-        
-        <div id ="nav"> NAV 
-        
-        
-        
+        <div id="title">Quads PA</div>
+       
+        <!-- Navigation Bar -->
+        <div id ="nav">
+            
+            <!-- Home -->
+            <div class="dropdown">
+                <a><img title="Home" src="icons/dark/home_icon_H24.png" alt="Home"></a>
+            </div>
+            
+            <!-- Account -->
+            <div class="dropdown">
+                <img class="dropHeader" onclick="dropdown('accountDropDown')" title="Account" src="icons/dark/account_dd_icon_H24.png" alt="Account" >
+                <div class="dropContent" id="accountDropDown">
+                    <a>Register</a> <br/>
+                    <a>Log In</a> <br/>
+                    <a>Profile</a> <br/>
+                    <a>Log Out</a> <br/>
+                </div>
+            </div>
+            
+            <!-- Search --> 
+            <div class="dropdown">
+                <img class="dropHeader" onclick="dropdown('searchDropDown')" title="Search" src="icons/dark/search_dd_icon_H24.png" alt="Search" >
+                <div class="dropContent" id="searchDropDown">
+                    <a> Users </a> <br/>
+                    <a> Parks </a> <br/>
+                </div>
+            </div>
+            
         </div>
-        
+       
         <div id ="content"> CONTENT </div>
         <div id ="footer"> FOOTER </div>
+        
+        <script src="js/dropdown.js"></script>
     </body>
 </html>
