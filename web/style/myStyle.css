@@ -22,6 +22,11 @@ body{
     padding-top:30px;
 }
 
+#nav a {
+    text-decoration: none;
+    color: white;
+}
+
 #title{
     padding:12px;
     padding-bottom: 0px;
