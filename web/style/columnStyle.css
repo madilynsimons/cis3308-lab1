@@ -25,6 +25,7 @@
     width: 66%;
 }
 
+/* keeps elements below from floating above*/
 .stopFloat { 
     clear: both;
 }
