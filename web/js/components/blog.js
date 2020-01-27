@@ -32,12 +32,30 @@ function blog(id){
         </div>
 
 
-        <div id ="blog_post2">
+        <div id ="blog_post2" style="padding-bottom:600px">
             <div class=row">
                 <div class='column column66'>
                     <h3>My Routing Experience</h3>
                     <p>
-                        This is where Post 2 goes. 
+                        I found this portion to be relatively easy.  Although
+                        I dont have a lot of experience with html and javascript,
+                        I do have a lot of experience with data structures, 
+                        Java, and OOP.  When reading the example code, it made
+                        a lot of sense.  The example code was very helpful.
+                    </p>
+                    <p>
+                        The only part that was somewhat difficult was debugging
+                        the Javascript.  Initially, router() in routeFw.js
+                        wasn't being called when I expected it too and 
+                        printRoutes() wasn't defined.  I thought this was a
+                        problem with the event listener, but really I just had
+                        the brackets in the wrong place.  I think if Javascript
+                        was a compiled language, it may have been able to catch
+                        that, but it didn't.
+                    </p>
+                    <p>
+                        I learned how routing works and I became more familiar
+                        and comfortable with Javascript and HTML.
                     </p>
                 </div>
             </div>
