@@ -16,6 +16,7 @@ function routeFw(params){
     
     // called whenever link is clicked
     function router(){
+        
         var path = location.hash;
         console.log('path is '+ path); // for debugging
         
@@ -28,18 +29,17 @@ function routeFw(params){
         {
             routes[path](contentId);
         }
-        
-        fw.printRoutes = function() {
-            console.log("routes: ");
-            console.log(routes);
-        };
-        
-        // listen for hash changes
-        window.addEventListener('hashchange', router);
-        
-        // content for rendered page
-        window.location.hash = "#/";
-        
-        return fw;
     }
+    fw.printRoutes = function() {
+        console.log("routes: ");
+        console.log(routes);
+    };
+        
+    // listen for hash changes
+    window.addEventListener('hashchange', router);
+        
+    // content for rendered page
+    window.location.hash = "#/";
+        
+    return fw;
 }
