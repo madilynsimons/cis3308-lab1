@@ -1,7 +1,7 @@
 function blog(id){
     var content = `
         <div id ="blog_post1">
-            <div class=row">
+            <div class="row">
                 <div class='column column66'>
                     <h3>My Database Experience</h3>
                     <p>
@@ -33,7 +33,7 @@ function blog(id){
 
 
         <div id ="blog_post2" style="padding-bottom:600px">
-            <div class=row">
+            <div class="row">
                 <div class='column column66'>
                     <h3>My Routing Experience</h3>
                     <p>
