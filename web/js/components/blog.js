@@ -4,9 +4,24 @@ function blog(id){
             <div>
             <div class="row">
                 <div class='column column66'>
-                    <h3>HW3: TODO</h3>
+                    <h3>HW3: Data Display Homework</h3>
                     <p>
-                        TODO
+                        For this homework assignment, I was able to familiarize
+                        myself with HTML tables.  This was a good assignment
+                        because I think it has been my most in-depth look
+                        at Javascript yet.  The example code shows us how to 
+                        create sortable HTML tables and HTML tables with a
+                        user input box attached, but it does not show how to 
+                        combine the two.  By combining the two, I was able to 
+                        get to know HTML tables a lot better as well as
+                        Javascript.
+                    </p>
+                    <p>
+                        I think the most challenging part of this assignment
+                        was writing users.js and parks.js.  The components
+                        that I wrote before (blog.js and home.js) only really
+                        had a variable that held some HTML, while user.js
+                        and parks.js combine HTML and Javascript together.
                     </p>
                 </div>
             </div>
