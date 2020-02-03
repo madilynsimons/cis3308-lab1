@@ -10,11 +10,10 @@ function blog(id){
                         myself with HTML tables.  This was a good assignment
                         because I think it has been my most in-depth look
                         at Javascript yet.  The example code shows us how to 
-                        create sortable HTML tables and HTML tables with a
-                        user input box attached, but it does not show how to 
-                        combine the two.  By combining the two, I was able to 
-                        get to know HTML tables a lot better as well as
-                        Javascript.
+                        create sortable HTML tables and filterable HTML tables, 
+                        but it does not show how to  combine the two.  By 
+                        combining the two, I was able to get to know HTML 
+                        tables a lot better as well as Javascript.
                     </p>
                     <p>
                         I think the most challenging part of this assignment
@@ -22,6 +21,14 @@ function blog(id){
                         that I wrote before (blog.js and home.js) only really
                         had a variable that held some HTML, while user.js
                         and parks.js combine HTML and Javascript together.
+                    </p>
+                    <p>
+                        Writing the JSON files was the easiest part of the 
+                        assignment.  I do, however, look forward to writing 
+                        the server side Web API that will generate JSON files 
+                        from my database.  I've never worked with databases 
+                        before so I look forward to writing web apps that can 
+                        interact with a database.
                     </p>
                 </div>
             </div>
@@ -58,7 +65,7 @@ function blog(id){
         </div>
 
 
-        <div style="padding-bottom:600px">
+        <div style="padding-bottom:800px">
             <div class="row">
                 <div class='column column66'>
                     <h3>HW2: My Routing Experience</h3>
