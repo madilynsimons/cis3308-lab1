@@ -1,9 +1,21 @@
 function blog(id){
     var content = `
-        <div id ="blog_post1">
+    
+            <div>
             <div class="row">
                 <div class='column column66'>
-                    <h3>My Database Experience</h3>
+                    <h3>HW3: TODO</h3>
+                    <p>
+                        TODO
+                    </p>
+                </div>
+            </div>
+        </div>
+    
+        <div>
+            <div class="row">
+                <div class='column column66'>
+                    <h3>HW2: My Database Experience</h3>
                     <p>
                         I think the database portion was more difficult than
                         the routing portion of the homework.  Creating my
@@ -27,15 +39,14 @@ function blog(id){
                         </a>
                     </p>
                 </div>
-                
             </div>
         </div>
 
 
-        <div id ="blog_post2" style="padding-bottom:600px">
+        <div style="padding-bottom:600px">
             <div class="row">
                 <div class='column column66'>
-                    <h3>My Routing Experience</h3>
+                    <h3>HW2: My Routing Experience</h3>
                     <p>
                         I found this portion to be relatively easy.  Although
                         I dont have a lot of experience with html and javascript,
