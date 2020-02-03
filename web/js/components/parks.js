@@ -19,10 +19,11 @@ function parks(id){
         // modifications for the image and the membership fee
         for (var i = 0; i < parksList.length; i++) {
             parksList[i].image = "<img  src='" + parksList[i].image + "'>";
+            parksList[i].userImage = "<img  src='" + parksList[i].userImage + "'>";
             parksList[i].cost = formatCurrency(parksList[i].cost.replace("$","").replace(",",""));
         }
 
-        MakeTable(parksList, "parks_table", "webUserId"); // iniritally sort by webUserId
+        MakeTable(parksList, "parks_table", "parkId"); // iniritally sort by webUserId
     }
    
 }
