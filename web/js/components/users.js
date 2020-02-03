@@ -25,6 +25,6 @@ function users(id){
             usersList[i].membershipFee = formatCurrency(usersList[i].membershipFee.replace("$","").replace(",",""));
         }
 
-        MakeSortableTable(usersList, "users_table", "webUserId"); // iniritally sort by webUserId
+        MakeTable(usersList, "users_table", "webUserId"); // iniritally sort by webUserId
     }
 }
