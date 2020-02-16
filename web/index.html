@@ -12,6 +12,7 @@ and open the template in the editor.
         <link href="style/dropdownStyle.css" rel="stylesheet" type="text/css" /> 
         <link href="style/columnStyle.css" rel="stylesheet" type="text/css" /> 
         <link href="style/clickSort.css" rel="stylesheet" type="text/css" />
+        <link href="style/eventCalendar.css" rel="stylesheet" type="text/css"/>
         
     </head>
     <body>
@@ -72,6 +73,7 @@ and open the template in the editor.
         
         <script src="js/ajax.js"></script>
         <script src="js/MakeTable.js"></script>
+        <script src="js/MakeEventCalendar.js"></script>
         
         <!-- Routing scripts -->
         <script src="js/routeFw.js"></script>
@@ -79,6 +81,7 @@ and open the template in the editor.
         <script src="js/components/home.js"></script>
         <script src="js/components/users.js"></script>
         <script src="js/components/parks.js"></script>
+        <script src="js/components/events.js"></script>
         
         <script>
             "use strict";
@@ -89,6 +92,7 @@ and open the template in the editor.
             myRoutes["#blog"] = blog;
             myRoutes["#/users"] = users;
             myRoutes["#/parks"] = parks;
+            myRoutes["#/events"] = events;
             
             var myRoutes = routeFw({
                 routeArray: myRoutes,
