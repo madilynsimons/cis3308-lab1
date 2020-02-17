@@ -1,26 +1,42 @@
 [
     {
-        "eventId": 1,
+        "eventId": "1",
         "eventName": "Nick's Birthday Party",
-        "parkId": 4,
-        "UTC": 1581703200
+        "parkId": "4",
+        "year": "2019",
+        "month": "11",
+        "day" : "25",
+        "hours" : "13",
+        "minutes" : "30"
     },
     {
-        "eventId": 2,
+        "eventId": "2",
         "eventName": "Morning Skate Session",
-        "parkId": 2,
-        "UTC": 1580567400
+        "parkId": "2",
+        "year": "2020",
+        "month": "0",
+        "day" : "10",
+        "hours" : "9",
+        "minutes" : "00"
     },
     {
-        "eventId": 3,
+        "eventId": "3",
         "eventName": "Chicks in Bowls Meet-Up",
-        "parkId": 5,
-        "UTC": 1579541400
+        "parkId": "5",
+        "year": "2020",
+        "month": "1",
+        "day" : "14",
+        "hours" : "10",
+        "minutes" : "15"
     },
     {
-        "eventId": 4,
+        "eventId": "4",
         "eventName": "Tony Hawk Meet and Greet",
-        "parkId": 1,
-        "UTC": 1577298600
+        "parkId": "1",
+        "year": "2020",
+        "month": "1",
+        "day" : "26",
+        "hours" : "4",
+        "minutes" : "30"
     }
 ]

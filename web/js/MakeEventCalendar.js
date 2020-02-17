@@ -4,55 +4,55 @@ function MakeEventCalendar(id, month, year){
     if (isNaN(month) || isNaN(year)){
         console.log("Month set to " + month);
         console.log("Year is set to " + year)
-        console.log("Parameter month must be a number between 1 and 12");
+        console.log("Parameter month must be a number between 0 and 11");
         console.log("Parameter year must be set to a valid year");
         return;
     }
 
-    if(month > 12 || month < 1 || year < 1000 || year > 9999){
+    if(month > 11 || month < 0 || year < 1000 || year > 9999){
         console.log("Month set to " + month);
         console.log("Year is set to " + year)
-        console.log("Parameter month must be a number between 1 and 12");
+        console.log("Parameter month must be a number between 0 and 11");
         console.log("Parameter year must be set to a valid year");
         return;
     }
 
     var monthName = "UNKNOWN_MONTH";
     switch(month){
-        case 1:
+        case 0:
             monthName = "January";
             break;
-        case 2:
+        case 1:
             monthName = "February";
             break;
-        case 3:
+        case 2:
             monthName = "March";
             break;
-        case 4:
+        case 3:
             monthName = "April";
             break;
-        case 5:
+        case 4:
             monthName = "May";
             break;
-        case 6:
+        case 5:
             monthName = "June";
             break;
-        case 7:
+        case 6:
             monthName = "July";
             break;
-        case 8:
+        case 7:
             monthName = "August";
             break;
-        case 9:
+        case 8:
             monthName = "September";
             break;
-        case 10:
+        case 9:
             monthName = "October";
             break;
-        case 11:
+        case 10:
             monthName = "November";
             break;
-        case 12:
+        case 11:
             monthName = "December";
             break;
         default:
@@ -67,7 +67,6 @@ function MakeEventCalendar(id, month, year){
         document.getElementById(id).removeChild(oldCalendarHeader);
         document.getElementById(id).removeChild(oldCalendarWeekdays);
         document.getElementById(id).removeChild(oldCalendarDays);
-
     }
 
     var calendarHeader = document.createElement("div");
@@ -82,8 +81,8 @@ function MakeEventCalendar(id, month, year){
     prevArrow.setAttribute('class', 'prev');
     prevArrow.onclick = function() {
         var prevMonth = month-1;
-        if(prevMonth === 0){
-            prevMonth = 12;
+        if(prevMonth === -1){
+            prevMonth = 11;
             year = year - 1;
         }
         clearCalendar();
@@ -96,8 +95,8 @@ function MakeEventCalendar(id, month, year){
     nextArrow.setAttribute('class', 'next');
     nextArrow.onclick = function() {
         var nextMonth = month+1;
-        if(nextMonth === 13){
-            nextMonth = 1;
+        if(nextMonth === 12){
+            nextMonth = 0;
             year = year + 1;
         }
         clearCalendar();
@@ -124,24 +123,49 @@ function MakeEventCalendar(id, month, year){
     calendarDays.setAttribute('class', 'days');
     calendarDays.setAttribute('id', 'calendarDays');
 
-    var d = new Date();
-    var i = 1;
-    d.setMonth(month-1);
-    d.setYear(year);
-    d.setDate(i);
+    var hasEvents = new Array(32);
+    ajax("json/events.json", getDays, "event_calendar");
+    function getDays(eventsList){
+      for(var j = 0; j < eventsList.length; j++){
 
-    var firstDayOfTheMonth = d.getDay();
-    for(var j = 0; j < firstDayOfTheMonth; j++){
-        var day = document.createElement("li");
-        calendarDays.appendChild(day);
-    }
+        var eventYear = eventsList[j].year;
+        var eventMonth = eventsList[j].month;
+        var eventDate = eventsList[j].day;
 
-    while(d.getMonth() === (month-1)){
-        var day = document.createElement("li");
-        day.innerHTML = i;
-        calendarDays.appendChild(day);
-        i++;
-        d.setDate(i);
+        if(eventYear == year && eventMonth == month){
+          hasEvents[eventDate] = 200;
+          console.log("hasEvents[" + eventDate + "] = 200");
+        }
+      }
+
+      var d = new Date();
+      var i = 1;
+      d.setMonth(month);
+      d.setYear(year);
+      d.setDate(i);
+
+      var firstDayOfTheMonth = d.getDay();
+      for(var j = 0; j < firstDayOfTheMonth; j++){
+          var day = document.createElement("li");
+          calendarDays.appendChild(day);
+      }
+
+      while(d.getMonth() === month){
+          var day = document.createElement("li");
+
+          if(hasEvents[i] == 200){
+            var span = document.createElement("span");
+            span.setAttribute('class', 'active');
+            span.innerHTML = i;
+            day.appendChild(span);
+          }else{
+            day.innerHTML = i;
+          }
+
+          calendarDays.appendChild(day);
+          i++;
+          d.setDate(i);
+      }
     }
 
     var eventSubmissionForm = document.createElement("div");
@@ -171,7 +195,7 @@ function MakeEventCalendar(id, month, year){
     var parkInput = document.createElement("select");
     parkInput.setAttribute('name', 'park');
 
-    ajax("json/parks.json", getParkOptions, "event_calenar");
+    ajax("json/parks.json", getParkOptions, "event_calendar");
     function getParkOptions(parksList){
       for(var i = 0; i < parksList.length; i++){
         var option = document.createElement("option");
