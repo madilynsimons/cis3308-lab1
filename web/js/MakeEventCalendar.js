@@ -1,5 +1,11 @@
 function MakeEventCalendar(id, month, year){
 
+    var pageTitle = document.createElement("h1");
+    pageTitle.innerHTML = "Events";
+
+    var submitEventsTitle = document.createElement("h2");
+    submitEventsTitle.innerHTML = "Submit Your Own Event";
+
     // Check that month is valid
     if (isNaN(month) || isNaN(year)){
         console.log("Month set to " + month);
@@ -103,6 +109,12 @@ function MakeEventCalendar(id, month, year){
               var span = document.createElement("span");
               span.setAttribute('class', 'active');
               span.innerHTML = i;
+
+              day.onclick = function() {
+                // TODO
+                console.log("There's an event on this day");
+              }
+
               day.appendChild(span);
             }else{
               day.innerHTML = i;
@@ -233,8 +245,11 @@ function MakeEventCalendar(id, month, year){
     submitButton.setAttribute('value', 'Submit');
     actionPage.appendChild(submitButton);
 
+    document.getElementById(id).appendChild(pageTitle);
     document.getElementById(id).appendChild(calendarHeader);
     document.getElementById(id).appendChild(calendarWeekdays);
     document.getElementById(id).appendChild(calendarDays);
+
+    document.getElementById(id).appendChild(submitEventsTitle);
     document.getElementById(id).appendChild(eventSubmissionForm);
 }
