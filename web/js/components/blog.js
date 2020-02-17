@@ -1,7 +1,58 @@
 function blog(id){
     var content = `
-    
             <div>
+            <div class="row">
+                <div class='column column66'>
+                    <h3>HW4: Tutorial Proposal</h3>
+                    <p>
+                        My favorite part of this assignment was creating a
+                        functional calendar.  The tutorial on W3Schools presents
+                        a hard-coded calendar in HTML.  There's nothing to click
+                        on, it doesn't change at all, and the individual dates
+                        are hard-coded.  This means that if you were to change
+                        the month, the dates would be wrong since they would
+                        reflect the dates hard-coded in the tutorial.
+                    </p>
+                    <p>
+                        I was able to use JavaScript to generalize the calendar.
+                        I used the CSS components provided from the tutorial,
+                        but used JavaScript's Date class to get the exact
+                        calendar dates for each individual month and then
+                        generate an accurate calendar with those dates.  Now
+                        every month that the calendar displays is accurate.
+                    </p>
+                    <p>
+                        The most difficult part of this homework was implementing
+                        a modal.  Any date that has an event is highlighted blue
+                        and a modal is displayed when the date is clicked.  This
+                        modal displays the event, when the event is, and where
+                        the event is.  I did not originally intend to use a modal,
+                        but when I was creating my Proof of Concept, I realized
+                        that there was no good way for users to find out more
+                        information about the events displayed in the calendar.
+                        The difficult part of programming the modal was making
+                        sure that the information it displayed corresponded to
+                        the date the user clicked on.  Sometimes I would click on
+                        Feb 14, but the modal would display info for Feb 26.  I
+                        was able to fix this by creating a new function called
+                        DisplayEvent, which would create a String that displays
+                        event data, and I used the "this" keyword to make sure
+                        that the modal was pulling data from the correct components.
+                    </p>
+                    <p>
+                      <a href="tutorial/proposal.pdf">
+                          Here is a link to my proposal.
+                      </a>
+                    </p>
+                    <p>
+                      <a href="tutorial/poc.html">
+                          Here is a link to my Proof of Concept.
+                      </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
             <div class="row">
                 <div class='column column66'>
                     <h3>HW3: Data Display Homework</h3>
@@ -9,10 +60,10 @@ function blog(id){
                         For this homework assignment, I was able to familiarize
                         myself with HTML tables.  This was a good assignment
                         because I think it has been my most in-depth look
-                        at Javascript yet.  The example code shows us how to 
-                        create sortable HTML tables and filterable HTML tables, 
-                        but it does not show how to  combine the two.  By 
-                        combining the two, I was able to get to know HTML 
+                        at Javascript yet.  The example code shows us how to
+                        create sortable HTML tables and filterable HTML tables,
+                        but it does not show how to  combine the two.  By
+                        combining the two, I was able to get to know HTML
                         tables a lot better as well as Javascript.
                     </p>
                     <p>
@@ -23,17 +74,17 @@ function blog(id){
                         and parks.js combine HTML and Javascript together.
                     </p>
                     <p>
-                        Writing the JSON files was the easiest part of the 
-                        assignment.  I do, however, look forward to writing 
-                        the server side Web API that will generate JSON files 
-                        from my database.  I've never worked with databases 
-                        before so I look forward to writing web apps that can 
+                        Writing the JSON files was the easiest part of the
+                        assignment.  I do, however, look forward to writing
+                        the server side Web API that will generate JSON files
+                        from my database.  I've never worked with databases
+                        before so I look forward to writing web apps that can
                         interact with a database.
                     </p>
                 </div>
             </div>
         </div>
-    
+
         <div>
             <div class="row">
                 <div class='column column66'>
@@ -52,7 +103,7 @@ function blog(id){
                         for MySQL a lot.  This introduction to writing scripts
                         was really easy and straightforward and progressed in a
                         way that made sense to me.  I think these concepts are
-                        going to stick with me, as opposed to before when I 
+                        going to stick with me, as opposed to before when I
                         would just immedietly forget what each keyword meant.
                     </p>
                     <p>
@@ -65,21 +116,21 @@ function blog(id){
         </div>
 
 
-        <div style="padding-bottom:800px">
+        <div style="padding-bottom:1200px">
             <div class="row">
                 <div class='column column66'>
                     <h3>HW2: My Routing Experience</h3>
                     <p>
                         I found this portion to be relatively easy.  Although
                         I dont have a lot of experience with html and javascript,
-                        I do have a lot of experience with data structures, 
+                        I do have a lot of experience with data structures,
                         Java, and OOP.  When reading the example code, it made
                         a lot of sense.  The example code was very helpful.
                     </p>
                     <p>
                         The only part that was somewhat difficult was debugging
                         the Javascript.  Initially, router() in routeFw.js
-                        wasn't being called when I expected it too and 
+                        wasn't being called when I expected it too and
                         printRoutes() wasn't defined.  I thought this was a
                         problem with the event listener, but really I just had
                         the brackets in the wrong place.  I think if Javascript
