@@ -106,16 +106,36 @@ function MakeEventCalendar(id, month, year){
             var day = document.createElement("li");
 
             if(hasEvents[i] == 200){
-              var span = document.createElement("span");
-              span.setAttribute('class', 'active');
-              span.innerHTML = i;
+              var dayHighlight = document.createElement("span");
+              dayHighlight.setAttribute('class', 'active');
+              dayHighlight.setAttribute('style', 'cursor: pointer;');
+              dayHighlight.innerHTML = i;
 
-              day.onclick = function() {
-                // TODO
-                console.log("There's an event on this day");
+              var modal = document.createElement("div");
+              modal.setAttribute('class', 'modal');
+              document.getElementById(id).appendChild(modal);
+
+              var modalContent = document.createElement("div");
+              modalContent.setAttribute('class', 'modal-content');
+              modal.appendChild(modalContent);
+
+              var modalClose = document.createElement("span");
+              modalClose.setAttribute('class', 'close');
+              modalClose.innerHTML = "&times;"
+              modalClose.onclick = function(){
+                modal.style.display = "none";
               }
+              modalContent.appendChild(modalClose);
 
-              day.appendChild(span);
+              var modalText = document.createElement("p");
+              modalContent.appendChild(modalText);
+
+              dayHighlight.onclick = function(){
+                modal.style.display = "block";
+                modalText.innerHTML = this.innerHTML;
+              }
+              day.appendChild(dayHighlight);
+
             }else{
               day.innerHTML = i;
             }
@@ -240,9 +260,9 @@ function MakeEventCalendar(id, month, year){
     timeInput.setAttribute('name', 'time');
     actionPage.appendChild(timeInput);
 
-    var submitButton = document.createElement("input");
-    submitButton.setAttribute('type', 'submit');
-    submitButton.setAttribute('value', 'Submit');
+    var submitButton = document.createElement("div");
+    submitButton.setAttribute('class', 'submitbutton');
+    submitButton.innerHTML = "Submit";
     actionPage.appendChild(submitButton);
 
     document.getElementById(id).appendChild(pageTitle);
