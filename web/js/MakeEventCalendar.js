@@ -132,7 +132,7 @@ function MakeEventCalendar(id, month, year){
 
               dayHighlight.onclick = function(){
                 modal.style.display = "block";
-                modalText.innerHTML = this.innerHTML;
+                modalText.innerHTML = DisplayEvents(year, month, this.innerHTML);
               }
               day.appendChild(dayHighlight);
 
