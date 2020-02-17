@@ -2,7 +2,7 @@
     {
         "eventId": "1",
         "eventName": "Nick's Birthday Party",
-        "parkId": "4",
+        "park": "Falls Township Skate Park",
         "year": "2019",
         "month": "11",
         "day" : "25",
@@ -12,7 +12,7 @@
     {
         "eventId": "2",
         "eventName": "Morning Skate Session",
-        "parkId": "2",
+        "park": "Black Rock Park",
         "year": "2020",
         "month": "0",
         "day" : "10",
@@ -22,7 +22,7 @@
     {
         "eventId": "3",
         "eventName": "Chicks in Bowls Meet-Up",
-        "parkId": "5",
+        "park": "Haverford Township Skate Park",
         "year": "2020",
         "month": "1",
         "day" : "14",
@@ -32,11 +32,11 @@
     {
         "eventId": "4",
         "eventName": "Tony Hawk Meet and Greet",
-        "parkId": "1",
+        "park": "Radnor Skate Park",
         "year": "2020",
         "month": "1",
         "day" : "26",
-        "hours" : "4",
+        "hours" : "16",
         "minutes" : "30"
     }
 ]
