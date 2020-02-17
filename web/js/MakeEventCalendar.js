@@ -17,56 +17,102 @@ function MakeEventCalendar(id, month, year){
         return;
     }
 
-    var monthName = "UNKNOWN_MONTH";
-    switch(month){
-        case 0:
-            monthName = "January";
-            break;
-        case 1:
-            monthName = "February";
-            break;
-        case 2:
-            monthName = "March";
-            break;
-        case 3:
-            monthName = "April";
-            break;
-        case 4:
-            monthName = "May";
-            break;
-        case 5:
-            monthName = "June";
-            break;
-        case 6:
-            monthName = "July";
-            break;
-        case 7:
-            monthName = "August";
-            break;
-        case 8:
-            monthName = "September";
-            break;
-        case 9:
-            monthName = "October";
-            break;
-        case 10:
-            monthName = "November";
-            break;
-        case 11:
-            monthName = "December";
-            break;
-        default:
-            monthName = "UNKNOWN_MONTH";
+    function GetMonthName(month){
+      var monthName = "UNKNOWN_MONTH";
+      switch(month){
+          case 0:
+              monthName = "January";
+              break;
+          case 1:
+              monthName = "February";
+              break;
+          case 2:
+              monthName = "March";
+              break;
+          case 3:
+              monthName = "April";
+              break;
+          case 4:
+              monthName = "May";
+              break;
+          case 5:
+              monthName = "June";
+              break;
+          case 6:
+              monthName = "July";
+              break;
+          case 7:
+              monthName = "August";
+              break;
+          case 8:
+              monthName = "September";
+              break;
+          case 9:
+              monthName = "October";
+              break;
+          case 10:
+              monthName = "November";
+              break;
+          case 11:
+              monthName = "December";
+              break;
+          default:
+              monthName = "UNKNOWN_MONTH";
+      }
+      return monthName;
     }
 
-    function clearCalendar(){
-        var oldCalendarHeader = document.getElementById("calendarHeader");
-        var oldCalendarWeekdays = document.getElementById("calendarWeekdays");
-        var oldCalendarDays = document.getElementById("calendarDays");
+    function UpdateCalendar(){
+      var monthName = GetMonthName(month);
+      monthTitle.innerHTML = monthName + " " + year;
 
-        document.getElementById(id).removeChild(oldCalendarHeader);
-        document.getElementById(id).removeChild(oldCalendarWeekdays);
-        document.getElementById(id).removeChild(oldCalendarDays);
+      var hasEvents = new Array(32);
+      ajax("json/events.json", getDays, "event_calendar");
+      function getDays(eventsList){
+        for(var j = 0; j < eventsList.length; j++){
+
+          var eventYear = eventsList[j].year;
+          var eventMonth = eventsList[j].month;
+          var eventDate = eventsList[j].day;
+
+          if(eventYear == year && eventMonth == month){
+            hasEvents[eventDate] = 200;
+          }
+        }
+
+        var d = new Date();
+        var i = 1;
+        d.setMonth(month);
+        d.setYear(year);
+        d.setDate(i);
+
+        while(calendarDays.firstChild){
+          calendarDays.removeChild(calendarDays.firstChild);
+        }
+
+        var firstDayOfTheMonth = d.getDay();
+        for(var j = 0; j < firstDayOfTheMonth; j++){
+            var day = document.createElement("li");
+            calendarDays.appendChild(day);
+        }
+
+        while(d.getMonth() === month){
+            var day = document.createElement("li");
+
+            if(hasEvents[i] == 200){
+              var span = document.createElement("span");
+              span.setAttribute('class', 'active');
+              span.innerHTML = i;
+              day.appendChild(span);
+            }else{
+              day.innerHTML = i;
+            }
+
+            calendarDays.appendChild(day);
+            i++;
+            d.setDate(i);
+        }
+      }
     }
 
     var calendarHeader = document.createElement("div");
@@ -85,8 +131,8 @@ function MakeEventCalendar(id, month, year){
             prevMonth = 11;
             year = year - 1;
         }
-        clearCalendar();
-        MakeEventCalendar(id, prevMonth, year);
+        month = prevMonth;
+        UpdateCalendar();
     }
     monthList.appendChild(prevArrow);
 
@@ -99,13 +145,12 @@ function MakeEventCalendar(id, month, year){
             nextMonth = 0;
             year = year + 1;
         }
-        clearCalendar();
-        MakeEventCalendar(id, nextMonth, year);
+        month = nextMonth;
+        UpdateCalendar();
     }
     monthList.appendChild(nextArrow);
 
     var monthTitle = document.createElement("li");
-    monthTitle.innerHTML = monthName + " " + year;
     monthList.appendChild(monthTitle);
 
     var calendarWeekdays = document.createElement("ul");
@@ -123,50 +168,7 @@ function MakeEventCalendar(id, month, year){
     calendarDays.setAttribute('class', 'days');
     calendarDays.setAttribute('id', 'calendarDays');
 
-    var hasEvents = new Array(32);
-    ajax("json/events.json", getDays, "event_calendar");
-    function getDays(eventsList){
-      for(var j = 0; j < eventsList.length; j++){
-
-        var eventYear = eventsList[j].year;
-        var eventMonth = eventsList[j].month;
-        var eventDate = eventsList[j].day;
-
-        if(eventYear == year && eventMonth == month){
-          hasEvents[eventDate] = 200;
-          console.log("hasEvents[" + eventDate + "] = 200");
-        }
-      }
-
-      var d = new Date();
-      var i = 1;
-      d.setMonth(month);
-      d.setYear(year);
-      d.setDate(i);
-
-      var firstDayOfTheMonth = d.getDay();
-      for(var j = 0; j < firstDayOfTheMonth; j++){
-          var day = document.createElement("li");
-          calendarDays.appendChild(day);
-      }
-
-      while(d.getMonth() === month){
-          var day = document.createElement("li");
-
-          if(hasEvents[i] == 200){
-            var span = document.createElement("span");
-            span.setAttribute('class', 'active');
-            span.innerHTML = i;
-            day.appendChild(span);
-          }else{
-            day.innerHTML = i;
-          }
-
-          calendarDays.appendChild(day);
-          i++;
-          d.setDate(i);
-      }
-    }
+    UpdateCalendar();
 
     var eventSubmissionForm = document.createElement("div");
     eventSubmissionForm.setAttribute('style', 'padding-top:10px');
