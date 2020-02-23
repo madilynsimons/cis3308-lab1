@@ -132,6 +132,7 @@ function MakeEventCalendar(id, month, year){
 
               dayHighlight.onclick = function(){
                 modal.style.display = "block";
+                //modal.style.overflow = "auto"; TODO: Play with this
                 modalText.innerHTML = DisplayEvents(year, month, this.innerHTML, eventsList);
               }
               day.appendChild(dayHighlight);
