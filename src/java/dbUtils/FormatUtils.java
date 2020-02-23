@@ -117,5 +117,20 @@ public class FormatUtils {
         out += "</td>";
         return out;
     } // formatString
+    
+    public static String formatDouble(Object obj){
+        if (obj == null) {
+            return "";
+        } else {
+            try {
+                BigDecimal bdval = (BigDecimal) obj;
+                Double dval = bdval.doubleValue();
+                DecimalFormat dblFormat = new DecimalFormat("###,###,###,##0.0");
+                return dblFormat.format(dval);
+            } catch (Exception e) {
+                return "bad Double in FormatUtils:" + obj.toString() + " Error:" + e.getMessage();
+            }
+        }
+    } // formatDouble
 
 } // FormatUtils class
