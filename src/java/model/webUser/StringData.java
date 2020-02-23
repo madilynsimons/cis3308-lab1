@@ -18,6 +18,7 @@ public class StringData {
     public String webUserId = "";
     public String userEmail = "";
     public String userPassword = "";
+    public String image = "";
     public String birthday = "";
     public String membershipFee = "";
     public String userRoleId = "";   // Foreign Key
@@ -35,6 +36,7 @@ public class StringData {
             this.webUserId = FormatUtils.formatInteger(results.getObject("web_user_id"));
             this.userEmail = FormatUtils.formatString(results.getObject("user_email"));
             this.userPassword = FormatUtils.formatString(results.getObject("user_password"));
+            this.image = FormatUtils.formatString(results.getObject("image"));
             this.birthday = FormatUtils.formatDate(results.getObject("birthday"));
             this.membershipFee = FormatUtils.formatDollar(results.getObject("membership_fee"));
             this.userRoleId = FormatUtils.formatInteger(results.getObject("web_user.user_role_id"));
