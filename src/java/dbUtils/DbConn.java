@@ -39,7 +39,10 @@ public class DbConn {
 
     private void recordError(String errorMsg) {
         this.errMsg = errorMsg;
-        System.out.println("Error in DbConn. " + errorMsg);
+        System.out.println(
+                "Problem connecting to database.  "
+                + " Please try later or contact your administrator. "
+                +"Error:" + errorMsg);
     }
 
     /* Returns database connection for use in SQL classes.  */

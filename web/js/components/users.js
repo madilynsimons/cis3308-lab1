@@ -10,11 +10,18 @@ function users(id){
         return myNum.toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2});
     }
     
-    ajax("json/allWebUsers.json", processData, "users_table");
+    ajax("webAPIs/listUsersAPI.jsp", processData, "users_table");
     
-    function processData(usersList) {
+    function processData(obj) {
 
-        console.log(usersList);  // users
+        console.log(obj);
+        
+        if(obj.dbError.length > 0){
+            document.getElementById("users_table").innerHTML = obj.dbError;
+            return;
+        }
+        
+        var usersList = obj.webUserList;
 
         // modifications for the image and the membership fee
         for (var i = 0; i < usersList.length; i++) {
