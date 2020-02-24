@@ -1,0 +1,58 @@
+[
+    {
+        "parkId": "1",
+        "name": "Radnor Skate Park",
+        "image": "https://i.imgur.com/HpzSP6d.jpg",
+        "description": "Located next to the Radnor Township Police Department",
+        "rating": "4.6",
+        "cost": "",
+        "webUserId": "3",
+        "userEmail": "chris.till@temple.edu",
+        "userImage": "https://i.imgur.com/LEYgHp1.jpg"
+    },
+    {
+        "parkId": "2",
+        "name": "Falls Township Skate Park",
+        "image": "https://i.imgur.com/jwM9r8e.png",
+        "description": "Money well spent and upkeep well taken care of for our neighborhood kids",
+        "rating": "4.5",
+        "cost": "",
+        "webUserId": "1",
+        "userEmail": "madilyn.simons@temple.edu",
+        "userImage": "https://i.imgur.com/y2MUbxT.jpg"
+    },
+    {
+        "parkId": "3",
+        "name": "Black Rock Park",
+        "image": "https://i.imgur.com/bCyeatE.png",
+        "description": "Clean, well maintained, and safe environment",
+        "rating": "4.6",
+        "cost": "",
+        "webUserId": "4",
+        "userEmail": "tim.smith@temple.edu",
+        "userImage": "https://i.imgur.com/E8rQ5By.jpg"
+    },
+    {
+        "parkId": "4",
+        "name": "Haverford Township Skate Park",
+        "image": "https://i.imgur.com/Ag6FEZM.png",
+        "description": "Great work by 5th Pocket Skatepark Designs on the new concrete ramps!",
+        "rating": "4.3",
+        "cost": "",
+        "webUserId": "5",
+        "userEmail": "dani.shoshany@temple.edu",
+        "userImage": "https://i.imgur.com/weU0b1N.jpg"
+        
+    },
+    {
+        "parkId": "5",
+        "name": "Daniel T. Kellet Skate Park",
+        "image": "https://i.imgur.com/6rs27jC.png",
+        "description": "Smooth ground and  ramps and butter bench ledges.",
+        "rating": "5.0",
+        "cost": "",
+        "webUserId": "1",
+        "userEmail": "madilyn.simons@temple.edu",
+        "userImage": "https://i.imgur.com/y2MUbxT.jpg"
+    }
+]

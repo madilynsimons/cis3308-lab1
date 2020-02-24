@@ -1,0 +1,52 @@
+[
+    {
+        "webUserId": "1",
+        "userEmail": "madilyn.simons@temple.edu",
+        "userPassword": "aX5gAQFK",
+        "image": "https://i.imgur.com/y2MUbxT.jpg",
+        "birthday": "03/28/1998",
+        "membershipFee": "5.00",
+        "userRoleId": "1",
+        "userRoleType": "Admin"
+    },
+    {
+        "webUserId": "2",
+        "userEmail": "nick.allan@temple.edu",
+        "userPassword": "5mAN5ggH",
+        "image": "https://i.imgur.com/JPrBwGZ.jpg",
+        "birthday": "06/26/1998",
+        "membershipFee": "$6.50",
+        "userRoleId": "1",
+        "userRoleType": "Admin"
+    },
+    {
+        "webUserId": "3",
+        "userEmail": "chris.till@temple.edu",
+        "userPassword": "jnge9NjU",
+        "image": "https://i.imgur.com/LEYgHp1.jpg",
+        "birthday": "05/16/1999",
+        "membershipFee": "$10.00",
+        "userRoleId": "2",
+        "userRoleType": "Member"
+    },
+    {
+        "webUserId": "4",
+        "userEmail": "tim.smith@temple.edu",
+        "userPassword": "BNQvi6jn",
+        "image": "https://i.imgur.com/E8rQ5By.jpg",
+        "birthday": "04/11/1994",
+        "membershipFee": "$1.00",
+        "userRoleId": "3",
+        "userRoleType": "View"
+    },
+    {
+        "webUserId": "5",
+        "userEmail": "dani.shoshany@temple.edu",
+        "userPassword": "qSoPwkT9",
+        "image": "https://i.imgur.com/weU0b1N.jpg",
+        "birthday": "12/31/1997",
+        "membershipFee": "$3.50",
+        "userRoleId": "3",
+        "userRoleType": "View"
+    }
+]

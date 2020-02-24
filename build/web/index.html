@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choWose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Quads PA</title>
+
+        <link href="style/myStyle.css" rel="stylesheet" type="text/css" />
+        <link href="style/dropdownStyle.css" rel="stylesheet" type="text/css" />
+        <link href="style/columnStyle.css" rel="stylesheet" type="text/css" />
+        <link href="style/clickSort.css" rel="stylesheet" type="text/css" />
+        <link href="style/eventCalendar.css" rel="stylesheet" type="text/css"/>
+
+    </head>
+    <body>
+
+        <div id="titleNav">
+
+            <!-- Title -->
+            <div id="title">Quads PA</div>
+
+            <!-- Navigation Bar -->
+            <div id ="nav">
+
+                <!-- Home -->
+                <div class="dropdown">
+                    <a href="#/home"><img title="Home" src="icons/light/home_icon_H24.png" alt="Home"></a>
+                </div>
+
+                <!-- Account -->
+                <div class="dropdown">
+                    <img class="dropHeader" title="Account" src="icons/light/account_dd_icon_H24.png" alt="Account" >
+                    <div class="dropContent">
+                        <a>Register</a> <br/>
+                        <a>Log In</a> <br/>
+                        <a>Profile</a> <br/>
+                        <a>Log Out</a> <br/>
+                    </div>
+                </div>
+
+                <!-- Search -->
+                <div class="dropdown">
+                    <img class="dropHeader" title="Search" src="icons/light/search_dd_icon_H24.png" alt="Search" >
+                    <div class="dropContent">
+                        <a href="#/users"> Users </a> <br/>
+                        <a href="#/parks"> Parks </a> <br/>
+                    </div>
+                </div>
+
+                <!-- Blog -->
+                <div class="dropdown">
+                    <a href="#/blog"><img title="Blog" src="icons/light/blog_icon_H24.png" alt="Blog"></a>
+                </div>
+
+                <!-- Tutorial -->
+                <div class="dropdown">
+                  <img class="dropHeader" title="Tutorial" src="icons/light/tutorial_dd_icon_H24.png" alt="Tutorial"></a>
+                  <div class="dropContent">
+                    <a href="tutorial/proposal.pdf"> Proposal </a> <br/>
+                    <a href="tutorial/poc.html"> Proof of Concept </a> <br/>
+                </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div id ="content"></div>
+
+        <div id ="footer"> Madilyn Simons </div>
+
+        <!-- Navigation Bar scripts -->
+        <script src="js/dropdownFw.js"></script>
+
+        <script>
+            "use strict";
+            dropdownFw("dropHeader", "dropContent");
+        </script>
+
+        <script src="js/ajax.js"></script>
+        <script src="js/MakeTable.js"></script>
+        <script src="js/MakeEventCalendar.js"></script>
+        <script src="js/DisplayEvents.js"></script>
+
+        <!-- Routing scripts -->
+        <script src="js/routeFw.js"></script>
+        <script src="js/components/blog.js"></script>
+        <script src="js/components/home.js"></script>
+        <script src="js/components/users.js"></script>
+        <script src="js/components/parks.js"></script>
+        <script src="js/components/events.js"></script>
+
+        <script>
+            "use strict";
+            var myRoutes = [];
+
+            myRoutes["#/"] = home;
+            myRoutes["#/home"] = home;
+            myRoutes["#/blog"] = blog;
+            myRoutes["#/users"] = users;
+            myRoutes["#/parks"] = parks;
+            myRoutes["#/events"] = events;
+
+            var myRoutes = routeFw({
+                routeArray: myRoutes,
+                contentId: "content"
+            });
+
+           myRoutes.printRoutes();
+
+        </script>
+
+    </body>
+</html>
