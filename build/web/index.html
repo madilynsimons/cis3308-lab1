@@ -13,6 +13,7 @@ and open the template in the editor.
         <link href="style/columnStyle.css" rel="stylesheet" type="text/css" />
         <link href="style/clickSort.css" rel="stylesheet" type="text/css" />
         <link href="style/eventCalendar.css" rel="stylesheet" type="text/css"/>
+        <link href="style/logon.css" rel="stylesheet" type="text/css" /> 
 
     </head>
     <body>
@@ -35,9 +36,9 @@ and open the template in the editor.
                     <img class="dropHeader" title="Account" src="icons/light/account_dd_icon_H24.png" alt="Account" >
                     <div class="dropContent">
                         <a>Register</a> <br/>
-                        <a>Log In</a> <br/>
-                        <a>Profile</a> <br/>
-                        <a>Log Out</a> <br/>
+                        <a href="#/logon">Log In</a> <br/>
+                        <a href="#/profile">Profile</a> <br/>
+                        <a href="#/logout">Log Out</a> <br/>
                     </div>
                 </div>
 
@@ -81,6 +82,7 @@ and open the template in the editor.
         </script>
 
         <script src="js/ajax.js"></script>
+        <script src="js/ajax2.js"></script>
         <script src="js/MakeTable.js"></script>
         <script src="js/MakeEventCalendar.js"></script>
         <script src="js/DisplayEvents.js"></script>
@@ -92,6 +94,7 @@ and open the template in the editor.
         <script src="js/components/users.js"></script>
         <script src="js/components/parks.js"></script>
         <script src="js/components/events.js"></script>
+        <script src="js/components/logon.js"></script>
 
         <script>
             "use strict";
@@ -103,6 +106,9 @@ and open the template in the editor.
             myRoutes["#/users"] = users;
             myRoutes["#/parks"] = parks;
             myRoutes["#/events"] = events;
+            myRoutes["#/logon"] = logon.logonUI;
+            myRoutes["#/profile"] = logon.profile;
+            myRoutes["#/logout"] = logon.logout;
 
             var myRoutes = routeFw({
                 routeArray: myRoutes,
