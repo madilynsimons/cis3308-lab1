@@ -1,5 +1,6 @@
 function blog(id){
     var content = `
+        <div id="blog6" style="margin: 10px"></div>
         <div id="blog5" style="margin: 10px"></div>
         <div id="blog4" style="margin: 10px"></div>
         <div id="blog3" style="margin: 10px"></div>
@@ -183,4 +184,48 @@ function blog(id){
             "     Parks Database API" +
             "</a> ";
     blog5.appendChild(blog5body);
+    
+    var blog6 = document.getElementById("blog6");
+    var title6 = document.createElement("h2");
+    title6.innerHTML = "HW6: Log On";
+    blog6.appendChild(title6);
+    
+    var blog6body = document.createElement("p");
+    
+    blog6body.innerHTML = "I think the most confusing part of this assignment " + 
+            "was wrapping my head around the order in which different components " +
+            "were called.  For example, when logging in, users use logon.loginUI " +
+            "to enter their email and password.  Then, they press the Submit button, " +
+            "which calls logon.findUser, which then calls logonAPI.jsp.  After that, " +
+            "logonAPI.jsp calls DbMods.logonFind.  This way of thinking about code " +
+            "is a lot closer to the way you'd think about traditional software and " +
+            "system design.  At the beginning of the class, we started with pretty basic " +
+            "HTML and Javascript elements communicating with each other and most of what "+
+            "was being displayed was hard-coded.  Now, we're implementing more formal " +
+            "logic and generalizing the code a lot more. " +
+            "<br> <br> " +
+            "The easiest part of this assignment was writing the APIs.  For one, " +
+            "the Java code was relatively short and simple.  Also, I am comfortable with " +
+            "and feel confident using Java.  Therefore, it was not a particularly difficult "+
+            "task." +
+            "<br> <br>" +
+            "<a href=\"webAPIs/logonAPI.jsp?email=madilyn.simons@temple.edu&password=aX5gAQFK\"> " +
+            "     Logon" +
+            "</a> " +
+            "<br> <br> " +
+            "<a href=\"webAPIs/logoffAPI.jsp\"> " +
+            "     Logoff" +
+            "</a> " +
+            "<br> <br> " +
+            "<a href=\"webAPIs/getProfileAPI.jsp\"> " +
+            "     Get Profile" +
+            "</a> " +
+            "<br> <br> " +
+            "<a href=\"webAPIs/listUsersAPI.jsp\"> " +
+            "     Get All Users" +
+            "</a> ";
+    
+    blog6.appendChild(blog6body);
+    
+    
 }
