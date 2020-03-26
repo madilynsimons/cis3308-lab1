@@ -10,13 +10,13 @@ import dbUtils.*;
 
 public class EventView {
 
-    public static StringDataList allEventsAPI(DbConn dbc) {
+    public static StringDataList allEventsAPI(DbConn dbc, String tableName) {
 
         //PreparedStatement stmt = null;
         //ResultSet results = null;
         StringDataList sdl = new StringDataList();
         try {
-            String sql = "SELECT event_id, name, date, location FROM event";
+            String sql = "SELECT event_id, name, date, location FROM " + tableName;
             // you always want to order by something, not just random order.
             PreparedStatement stmt = dbc.getConn().prepareStatement(sql);
             ResultSet results = stmt.executeQuery();

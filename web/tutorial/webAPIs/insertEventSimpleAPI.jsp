@@ -16,8 +16,12 @@
     StringData errorMsgs = new StringData();
 
     String jsonInsertData = request.getParameter("jsonData");
+    String tableName = request.getParameter("tableName");
 
-    if (jsonInsertData == null) {
+    if(tableName == null){
+      errorMsgs.errorMsg = "Cannot insert -- missing 'tableName' parameter";
+      System.out.println(errorMsgs.errorMsg);
+    } else if (jsonInsertData == null) {
         errorMsgs.errorMsg = "Cannot insert -- missing 'jsonData' URL parameter";
         System.out.println(errorMsgs.errorMsg);
     } else { // URL parameter data was received
@@ -58,7 +62,7 @@
                     "ORDER BY web_user_id ";
                  */
                 // Start preparing SQL statement
-                String sql = "INSERT INTO event (name, date, location) "
+                String sql = "INSERT INTO " + tableName + " (name, date, location) "
                         + "values (?,?,?)";
 
                 // PrepStatement is Sally's wrapper class for java.sql.PreparedStatement

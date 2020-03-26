@@ -22,17 +22,18 @@ and open the template in the editor.
 
 
         <!-- Content -->
-        <div id ="content"></div>
+        <div id ="content">
+            <div id="calendar"></div>
+        </div>
 
         <div id ="footer"> Madilyn Simons </div>
 
         <script src="js/ajax.js"></script>
-        <script src="js/components/events.js"></script>
         <script src="js/MakeEventCalendar.js"></script>
         <script src="js/DisplayEvents.js"></script>
 
         <script>
-          events("content");
+          MakeEventCalendar("calendar", "event");
         </script>
 
     </body>

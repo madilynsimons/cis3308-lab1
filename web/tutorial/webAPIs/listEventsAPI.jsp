@@ -8,17 +8,23 @@
 <%
     // default constructor creates nice empty StringDataList with all fields "" (empty string, nothing null).
     StringDataList list = new StringDataList();
+    String tableName = request.getParameter("tableName");
 
-    DbConn dbc = new DbConn();
-    list.dbError = dbc.getErr(); // returns "" if connection is good, else db error msg.
+    if(tableName == null){
+      list.dbError = "Cannot insert -- missing 'tableName' parameter";
+      System.out.println(list.dbError);
+    } else {
+      DbConn dbc = new DbConn();
+      list.dbError = dbc.getErr(); // returns "" if connection is good, else db error msg.
 
-    if (list.dbError.length() == 0) { // if got good DB connection,
+      if (list.dbError.length() == 0) { // if got good DB connection,
 
-        System.out.println("*** Ready to call allEventsAPI");
-        list = EventView.allEventsAPI(dbc);
-    }
+          System.out.println("*** Ready to call allEventsAPI");
+          list = EventView.allEventsAPI(dbc, tableName);
+      }
 
       dbc.close(); // EVERY code path that opens a db connection, must also close it - no DB Conn leaks.
+    }
 
     // This object (from the GSON library) can to convert between JSON <-> POJO (plain old java object)
     Gson gson = new Gson();

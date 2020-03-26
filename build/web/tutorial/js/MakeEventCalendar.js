@@ -1,4 +1,8 @@
-function MakeEventCalendar(id, month, year){
+function MakeEventCalendar(id, tableName){
+    
+    var rightNow = new Date();
+    var year = rightNow.getFullYear();
+    var month = rightNow.getMonth();
 
     var pageTitle = document.createElement("h1");
     pageTitle.innerHTML = "Events";
@@ -6,7 +10,7 @@ function MakeEventCalendar(id, month, year){
     var submitEventsTitle = document.createElement("h2");
     submitEventsTitle.innerHTML = "Submit Your Own Event";
 
-    // Check that month is valid TODO -- Make sure month and year are correct ranges
+    // Check that month is valid
     if (isNaN(month) || isNaN(year)){
         console.log("Error in MakeEventCalender: Invalid date");
         return;
@@ -63,7 +67,8 @@ function MakeEventCalendar(id, month, year){
       monthTitle.innerHTML = monthName + " " + year;
 
       var hasEvents = new Array(32);
-      ajax("webAPIs/listEventsAPI.jsp", getDays, "event_calendar");
+      var myUrl = "webAPIs/listEventsAPI.jsp?tableName=" + tableName;
+      ajax(myUrl, getDays, "event_calendar");
       function getDays(obj){
           
         // TODO -- check for error
@@ -253,15 +258,12 @@ function MakeEventCalendar(id, month, year){
           "location": locationInput.value,
         };
         var myData = escape(JSON.stringify(eventInputObj));
-        var url = "webAPIs/insertEventSimpleAPI.jsp?jsonData=" + myData;
+        var url = "webAPIs/insertEventSimpleAPI.jsp?jsonData=" + myData
+            + "&tableName=" + tableName;
         ajax(url, insertReqGood, "recordError");
         
         function insertReqGood(httpRequest) {
-            // Running this function does not mean insert success. It just means that the Web API
-            // call (to insert the record) was successful.
-            console.log("insertReqGood was called here is httpRequest.");
-            console.log(httpRequest);
-            // TODO -- check for error
+            // TODO -- check for errors
             UpdateCalendar();
 
         }
