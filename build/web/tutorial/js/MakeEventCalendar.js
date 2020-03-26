@@ -6,7 +6,7 @@ function MakeEventCalendar(id, month, year){
     var submitEventsTitle = document.createElement("h2");
     submitEventsTitle.innerHTML = "Submit Your Own Event";
 
-    // Check that month is valid
+    // Check that month is valid TODO -- Make sure month and year are correct ranges
     if (isNaN(month) || isNaN(year)){
         console.log("Error in MakeEventCalender: Invalid date");
         return;
@@ -219,24 +219,16 @@ function MakeEventCalendar(id, month, year){
     eventNameInput.setAttribute('placeholder', 'Event Name');
     actionPage.appendChild(eventNameInput);
 
-    var parkLabel = document.createElement("label");
-    parkLabel.setAttribute('for', 'park');
-    parkLabel.innerHTML = "Park";
-    actionPage.appendChild(parkLabel);
+    var locationLabel = document.createElement("label");
+    locationLabel.setAttribute('for', 'location');
+    locationLabel.innerHTML = "Location";
+    actionPage.appendChild(locationLabel);
 
-    var parkInput = document.createElement("select");
-    parkInput.setAttribute('name', 'park');
-
-    ajax("json/parks.json", getParkOptions, "event_calendar");
-    function getParkOptions(parksList){
-      for(var i = 0; i < parksList.length; i++){
-        var option = document.createElement("option");
-        option.setAttribute('value', parksList[i].parkId);
-        option.innerHTML = parksList[i].name;
-        parkInput.appendChild(option);
-      }
-    }
-    actionPage.appendChild(parkInput);
+    var locationInput = document.createElement("input");
+    locationInput.setAttribute('type', 'text');
+    locationInput.setAttribute('name', 'location');
+    locationInput.setAttribute('placeholder', 'Location');
+    actionPage.appendChild(locationInput);
 
     var dateLabel = document.createElement("label");
     dateLabel.setAttribute('for', 'date');
@@ -248,20 +240,32 @@ function MakeEventCalendar(id, month, year){
     dateInput.setAttribute('name', 'date');
     actionPage.appendChild(dateInput);
 
-    var timeLabel = document.createElement("label");
-    timeLabel.setAttribute('for', 'time');
-    timeLabel.innerHTML = "Time";
-    actionPage.appendChild(timeLabel);
-
-    var timeInput = document.createElement("input");
-    timeInput.setAttribute('type', 'time');
-    timeInput.setAttribute('name', 'time');
-    actionPage.appendChild(timeInput);
-
     var submitButton = document.createElement("div");
     submitButton.setAttribute('class', 'submitbutton');
     submitButton.innerHTML = "Submit";
     actionPage.appendChild(submitButton);
+    
+    submitButton.onclick = function(){
+        var eventInputObj = {
+          "eventId" : "",
+          "name" : eventNameInput.value,
+          "date": dateInput.value,
+          "location": locationInput.value,
+        };
+        var myData = escape(JSON.stringify(eventInputObj));
+        var url = "webAPIs/insertEventSimpleAPI.jsp?jsonData=" + myData;
+        ajax(url, insertReqGood, "recordError");
+        
+        function insertReqGood(httpRequest) {
+            // Running this function does not mean insert success. It just means that the Web API
+            // call (to insert the record) was successful.
+            console.log("insertReqGood was called here is httpRequest.");
+            console.log(httpRequest);
+            // TODO -- check for error
+            UpdateCalendar();
+
+        }
+    }
 
     document.getElementById(id).appendChild(pageTitle);
     document.getElementById(id).appendChild(calendarHeader);
