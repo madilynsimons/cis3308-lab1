@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choWose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Playground</title>
+
+    </head>
+    <body>
+
+        <!-- Content -->
+        <div id ="content"></div>
+
+        <div id ="footer"> Madilyn Simons </div>
+
+
+        <script src="js/routeFw.js"></script>
+        <script src="js/ajax.js"></script>
+        <script src="js/GetEventData.js"></script>
+
+        <script>
+            "use strict";
+            
+            console.log("Starting!");
+            var myRoutes = [];
+
+            myRoutes["#/"] = GetEventData;
+
+            var myRoutes = routeFw({
+                routeArray: myRoutes,
+                contentId: "content"
+            });
+
+           myRoutes.printRoutes();
+        </script>
+
+    </body>
+</html>

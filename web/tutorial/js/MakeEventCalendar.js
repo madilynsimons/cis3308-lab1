@@ -8,18 +8,7 @@ function MakeEventCalendar(id, month, year){
 
     // Check that month is valid
     if (isNaN(month) || isNaN(year)){
-        console.log("Month set to " + month);
-        console.log("Year is set to " + year)
-        console.log("Parameter month must be a number between 0 and 11");
-        console.log("Parameter year must be set to a valid year");
-        return;
-    }
-
-    if(month > 11 || month < 0 || year < 1000 || year > 9999){
-        console.log("Month set to " + month);
-        console.log("Year is set to " + year)
-        console.log("Parameter month must be a number between 0 and 11");
-        console.log("Parameter year must be set to a valid year");
+        console.log("Error in MakeEventCalender: Invalid date");
         return;
     }
 
@@ -69,20 +58,27 @@ function MakeEventCalendar(id, month, year){
     }
 
     function UpdateCalendar(){
+      
       var monthName = GetMonthName(month);
       monthTitle.innerHTML = monthName + " " + year;
 
       var hasEvents = new Array(32);
-      ajax("json/events.json", getDays, "event_calendar");
-      function getDays(eventsList){
+      ajax("webAPIs/listEventsAPI.jsp", getDays, "event_calendar");
+      function getDays(obj){
+          
+        // TODO -- check for error
+          
+        var eventsList = obj.eventList; 
+          
         for(var j = 0; j < eventsList.length; j++){
-
-          var eventYear = eventsList[j].year;
-          var eventMonth = eventsList[j].month;
-          var eventDate = eventsList[j].day;
-
+            
+            var eventDate = new Date(Date.parse(eventsList[j].date));
+            var eventYear = eventDate.getFullYear();
+            var eventMonth = eventDate.getMonth();
+            var eventDay = eventDate.getDate();
+          
           if(eventYear == year && eventMonth == month){
-            hasEvents[eventDate] = 200;
+            hasEvents[eventDay] = 200;
           }
         }
 
@@ -132,7 +128,9 @@ function MakeEventCalendar(id, month, year){
 
               dayHighlight.onclick = function(){
                 modal.style.display = "block";
-                modalText.innerHTML = DisplayEvents(year, month, this.innerHTML, eventsList);
+                
+                var clickedDate = new Date(year, month, this.innerHTML);
+                modalText.innerHTML = DisplayEvents(eventsList, clickedDate);
               }
               day.appendChild(dayHighlight);
 

@@ -4,23 +4,23 @@ function users(id){
     `;
     
     document.getElementById(id).innerHTML = content;
-    
+
     function formatCurrency(num) {
         var myNum = Number(num);
         return myNum.toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2});
     }
-    
+
     ajax("webAPIs/listUsersAPI.jsp", processData, "users_table");
-    
+
     function processData(obj) {
 
         console.log(obj);
-        
+
         if(obj.dbError.length > 0){
             document.getElementById("users_table").innerHTML = obj.dbError;
             return;
         }
-        
+
         var usersList = obj.webUserList;
 
         // modifications for the image and the membership fee
