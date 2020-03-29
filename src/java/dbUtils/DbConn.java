@@ -13,7 +13,7 @@ public class DbConn {
     private java.sql.Connection conn = null;
 
     public DbConn() {
-        
+
         String dbAndPass = "SP20_3308_tug34641?user=tug34641&password=sheavahk";
 
         try {
@@ -36,6 +36,22 @@ public class DbConn {
             recordError("Problem getting driver:" + e.getMessage());
         }
     } // method
+
+    public DbConn(String url){
+
+              try {
+                  String DRIVER = "com.mysql.jdbc.Driver";
+                  Class.forName(DRIVER).newInstance();
+                  try {
+                      this.conn = DriverManager.getConnection(url);
+
+                  } catch (Exception e) { // cant get the connection
+                      recordError("Problem getting connection:" + e.getMessage());
+                  }
+              } catch (Exception e) { // cant get the driver...
+                  recordError("Problem getting driver:" + e.getMessage());
+              }
+    }
 
     private void recordError(String errorMsg) {
         this.errMsg = errorMsg;
@@ -90,13 +106,13 @@ public class DbConn {
         return temple;
     }
 
-    // This method gets run when GC (garbage collection) runs 
-    // and we are never sure when this might happen, but still it's better than 
-    // nothing to try to be sure that all db connections are closed when 
-    // the dbConn object is no longer referenced. Maybe we can get the IT 
+    // This method gets run when GC (garbage collection) runs
+    // and we are never sure when this might happen, but still it's better than
+    // nothing to try to be sure that all db connections are closed when
+    // the dbConn object is no longer referenced. Maybe we can get the IT
     // Administrator to set the GC to run more often.
     protected void finalize() {
-        this.close(); // 
+        this.close(); //
     }
 
 } // class

@@ -16,7 +16,7 @@ public class EventView {
         //ResultSet results = null;
         StringDataList sdl = new StringDataList();
         try {
-            String sql = "SELECT event_id, name, date, location FROM " + tableName;
+            String sql = "SELECT name, date, location FROM " + tableName;
             // you always want to order by something, not just random order.
             PreparedStatement stmt = dbc.getConn().prepareStatement(sql);
             ResultSet results = stmt.executeQuery();

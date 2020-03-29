@@ -12,11 +12,11 @@
     //    JSON (JavaScript Object notation)
     Gson gson = new Gson();
 
-    DbConn dbc = new DbConn();
-    StringData errorMsgs = new StringData();
-
     String jsonInsertData = request.getParameter("jsonData");
     String tableName = request.getParameter("tableName");
+    String dbUrl = request.getParameter("dbUrl");
+
+    StringData errorMsgs = new StringData();
 
     if(tableName == null){
       errorMsgs.errorMsg = "Cannot insert -- missing 'tableName' parameter";
@@ -24,7 +24,12 @@
     } else if (jsonInsertData == null) {
         errorMsgs.errorMsg = "Cannot insert -- missing 'jsonData' URL parameter";
         System.out.println(errorMsgs.errorMsg);
+    } else if(dbUrl == null) {
+      errorMsgs.errorMsg = "Cannot insert -- missing 'dbUrl' URL parameter";
+      System.out.println(errorMsgs.errorMsg);
     } else { // URL parameter data was received
+        DbConn dbc = new DbConn(dbUrl);
+
         System.out.println("insertData received and is " + jsonInsertData);
         errorMsgs.errorMsg = dbc.getErr();
         if (errorMsgs.errorMsg.length() == 0) { // means db connection is ok
@@ -94,8 +99,9 @@
             } // all fields passed validation
 
         } // db connection OK
+        dbc.close();
     } // URL parameter data was received.
 
     out.print(gson.toJson(errorMsgs).trim());
-    dbc.close();
+
 %>

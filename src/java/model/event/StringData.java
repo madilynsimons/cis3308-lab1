@@ -15,7 +15,6 @@ import java.sql.ResultSet;
  * free access to put data in or take it out. */
 public class StringData {
 
-    public String eventId = "";
     public String name = "";
     public String date = "";
     public String location = "";
@@ -29,7 +28,6 @@ public class StringData {
     // overloaded constructor sets all data members by extracting from resultSet.
     public StringData(ResultSet results) {
         try {
-            this.eventId = FormatUtils.formatInteger(results.getObject("event_id"));
             this.name = FormatUtils.formatString(results.getObject("name"));
             this.date = FormatUtils.formatDate(results.getObject("date"));
             this.location = FormatUtils.formatString(results.getObject("location"));
@@ -40,13 +38,12 @@ public class StringData {
     }
 
     public int getCharacterCount() {
-        String s = this.eventId + this.name + this.date + this.location;
+        String s = this.name + this.date + this.location;
         return s.length();
     }
 
     public String toString() {
-        return "Event Id: " + this.eventId
-                + ", Name: " + this.name
+        return "Name: " + this.name
                 + ", Date: " + this.date
                 + ", Location: " + this.location;
     }

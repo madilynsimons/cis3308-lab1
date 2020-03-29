@@ -6,36 +6,331 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Playground</title>
+        <title>My Tutorial</title>
+        <link href="style/myStyle.css" rel="stylesheet" type="text/css" />
+        <link href="style/dropdownStyle.css" rel="stylesheet" type="text/css" />
+
+        <style>
+            table, th, td {
+                border: 1px solid black;
+            }
+        </style>
 
     </head>
     <body>
 
+        <div id="titleNav">
+            <div id="title">Tutorial</div>
+        </div>
+
         <!-- Content -->
-        <div id ="content"></div>
+        <div id ="content">
+            <h2>The Event Calendar</h2>
+            <p>
+                The Event Calendar combines a calendar and a form so that users
+                may view events on the calendar as well as add their own events
+                to the calendar for other users to view.  The calendar displays
+                one month at a time, but users may click on the left arrow or the
+                right arrow to change which month they are looking at.  If there
+                are one or more events on any given day, that day will be
+                highlighted on the calendar.  If a user clicks on a highlighted
+                day, a small window will pop up and display the name of the
+                events on that day, when the events are, and where the events
+                are.
+            </p>
+            <p>
+                To add an event to the calendar, use the form under the calendar.
+                There are input fields for the event's name, location, and time.
+                Enter that information for the event and then click the submit
+                button.  After submitting an event, the event will be automatically
+                added to the calendar and the day of the event will be highlighted.
+                Users will then be able to click on the event to read the information
+                given about the event.
+            </p>
+
+            <h2>How to Implement the Event Calendar</h2>
+            <p>
+                To add the Event Calendar to your website, follow these steps:
+            </p>
+            <h3>Create Your Event Database</h3>
+            <p>
+               Connect to MySQL and create a table to save your events.  You can
+               name this table whatever you'd like.  Each event will be an element
+               in your table.
+            </p>
+            <p>
+                For your events table, enter the following columns:
+            </p>
+            <table>
+                <tr>
+                    <th>Column</th>
+                    <th>Type</th>
+                    <th>Nullable</th>
+                </tr>
+                <tr>
+                    <td>name</td>
+                    <td>VARCHAR(45)</td>
+                    <td>NO</td>
+                </tr>
+                <tr>
+                    <td>date</td>
+                    <td>DATE</td>
+                    <td>NO</td>
+                </tr>
+                <tr>
+                    <td>location</td>
+                    <td>VARCHAR(45)</td>
+                    <td>YES</td>
+                </tr>
+            </table>
+
+            <h3>Install Java Files and Java Server Pages</h3>
+            <p>
+                First, save the dbUtils, model.event, and view packages to your
+                src directory.  Afterwards, your src directory should include the
+                following Java files:
+            </p>
+            <ul>
+                <li>src/java/dbUtils/DbConn.java</li>
+                <li>src/java/dbUtils/ValidationUtils.java</li>
+                <li>src/java/dbUtils/FormatUtils.java</li>
+                <li>src/java/dbUtils/PrepStatement.java</li>
+                <li>src/java/model/event/StringDataList.java</li>
+                <li>src/java/model/event/StringData.java</li>
+                <li>src/java/view/EventView.java</li>
+            </ul>
+
+            <p>
+                Next, save insertEventSimpleAPI.jsp and listEventsAPI.jsp to
+                your web/webAPIs directory.  If web/webAPIs does not exist,
+                create it.  Afterwards, your web directory should include the
+                following Java Server Pages:
+            </p>
+            <ul>
+                <li>web/webAPIs/insertEventSimpleAPI.jsp</li>
+                <li>web/webAPIs/insertEventsAPIs.jsp</li>
+            </ul>
+
+            <h3>Add an Event Calendar to Your HTML Page</h3>
+            <p>
+                First, create a div in your page's body and give it some id.
+            </p>
+            <pre>
+&lt;body&gt;
+    &lt;div id='myEventTable'&gt;&lt;/div&gt;
+&lt;/body&gt;
+            </pre>
+            <p>
+                Next, import MakeEventCalendar.js using the script tag.
+            </p>
+            <pre>
+&lt;script src="js/MakeEventCalendar.js"&gt;&lt;/script&gt;
+            </pre>
+            <p>
+                Last, call MakeEventCalendar() using the script tag.
+                MakeEventCalendar() takes one parameter object with two
+                REQUIRED properties:
+            </p>
+            <ol>
+                <li>params.id is set to the id of the div that'll contain the event calendar</li>
+                <li>params.tableName is set to the name of the event table</li>
+            </ol>
+            <pre>
+&lt;script&gt;
+    var params;
+    params.id = "myEventCalendar";
+    params.tableName = "event";
+    var eventCalendar = MakeEventCalendar(params);
+&lt;/script&gt;
+            </pre>
+
+            <h3>Optional: Customize Your Event Calendar</h3>
+            <p>
+                You can customize your Event Calendar using changeColor(),
+                changeCalendarTitle(), and changeFormTitle().  These allow you
+                to change the color of your Event Calendar, change the main
+                heading on top of the calendar, and change the smaller heading
+                on top of the event submission form.
+            </p>
+<pre>
+    var eventCalendar = MakeEventCalendar(params);
+    eventCalendar.changeColor("rgb(255, 0, 0)"); // Change color to Red
+    eventCalendar.changeCalendarTitle("Birthdays!"); // Change title to "Birthdays!"
+    eventCalendar.changeFormTitle("Add your birthday"); // Add instructions to form
+</pre>
+
+
+            <h2>Working Example</h2>
+            <p>Click the link below for an Event Calendar demo!</p>
+            <a href="TODO.txt">EventCalendarDemo.zip</a>
+
+            <h2> How It Works</h2>
+            <h3>UpdateCalendar()</h3>
+            <p>
+                A function inside of MakeEventCalendar.js called
+                UpdateCalendar() is called when the Event Calendar is first
+                rendered, whenever the user displays a different month, or
+                any time the user adds a new event.
+            </p>
+            <p>
+                First, an array called hasEvents is created.  Each element
+                in this array represents a day in a month and an element is
+                set to 200 if its corresponding day of the month has at least one
+                event.  For example, if the month displayed by the calendar is
+                April and there is at least one event on April 20, hasEvents[20]
+                is set to 200.
+            </p>
+            <pre>
+var hasEvents = Array(32);
+            </pre>
+            <p>
+                Next, the script uses AJAX to invoke listEventsAPI.jsp.  This
+                fetches all of the events in our event database.  Once this
+                process is complete, a function called getDays() is called.
+            </p>
+            <pre>
+var myUrl = "webAPIs/listEventsAPI.jsp?tableName=" + tableName;
+ajax(myUrl, getDays, "event_calendar");
+            </pre>
+            <p>
+                The first thing getDays() does is traverse through the events
+                fetched from our database and uses them to update hasEvents.  It
+                checks the date of each event and updates hasEvents accordingly.
+            </p>
+            <pre>
+function getDays(obj){
+
+        var eventsList = obj.eventList;
+
+        for(var j = 0; j < eventsList.length; j++){
+
+            var eventDate = new Date(Date.parse(eventsList[j].date));
+            var eventYear = eventDate.getFullYear();
+            var eventMonth = eventDate.getMonth();
+            var eventDay = eventDate.getDate();
+
+          if(eventYear == year && eventMonth == month){
+            hasEvents[eventDay] = 200;
+          }
+        }
+            </pre>
+            <p>
+                We then clear the calendar so that we can display the desired dates.
+            </p>
+            <pre>
+        while(calendarDays.firstChild){
+            calendarDays.removeChild(calendarDays.firstChild);
+        }
+            </pre>
+            <p>
+                Once the calendar has been cleared, we traverse through each day
+                of the month and add it to the calendar.  For each day of the
+                month, we check hasEvents for that day to see if there are events
+                planned for that day.  If there is, we highlight that day and
+                create a modal for that day.  The modal will appear when the day
+                is clicked on and the modal will display information about the
+                events on that day.
+            </p>
+            <pre>
+        var d = new Date();
+        var i = 1;
+        d.setMonth(month);
+        d.setYear(year);
+        d.setDate(i);
+
+        while(d.getMonth() === month){
+            var day = document.createElement("li");
+
+            if(hasEvents[i] == 200){
+              var dayHighlight = document.createElement("span");
+
+              ...
+
+              dayHighlight.onclick = function(){
+                modal.style.display = "block";
+
+                var clickedDate = new Date(year, month, this.innerHTML);
+                modalText.innerHTML = GetEventInfo(eventsList, clickedDate);
+              }
+              day.appendChild(dayHighlight);
+
+            }else{
+              day.innerHTML = i;
+            }
+
+            calendarDays.appendChild(day);
+            i++;
+            d.setDate(i);
+        }
+            </pre>
+            <p>
+                Events are added to the calendar whenever the submit button is
+                clicked, which invokes submitbutton.onclick.  When submitbuton.onclick
+                is invoked, MakeEventCalendar.js saves the data inputted by the
+                user in the form fields and uses AJAX to invoke insertEventSimpleAPI.jsp.
+                Once the event is inserted into the database, UpdateCalendar()
+                is called again so that the events displayed are up-to-date.
+            </p>
+            <pre>
+    submitButton.onclick = function(){
+        var eventInputObj = {
+          "name" : eventNameInput.value,
+          "date": dateInput.value,
+          "location": locationInput.value,
+        };
+        var myData = escape(JSON.stringify(eventInputObj));
+        var url = "webAPIs/insertEventSimpleAPI.jsp?jsonData=" + myData
+            + "&tableName=" + tableName;
+        ajax(url, insertReqGood, "recordError");
+
+        function insertReqGood(httpRequest) {
+            // TODO -- check for errors
+            UpdateCalendar();
+
+        }
+    }
+            </pre>
+            <h2>Inspiration</h2>
+            <p>
+                The calendar part of the Event Calendar is inspired by
+                W3Schools' "CSS Calendar".
+            </p>
+            <a href="https://www.w3schools.com/howto/howto_css_calendar.asp">
+                https://www.w3schools.com/howto/howto_css_calendar.asp
+            </a>
+            <p>
+                The event submission form is inspired by W3Schools'  "Contact Form".
+            </p>
+            <a href="https://www.w3schools.com/howto/howto_css_contact_form.asp">
+                https://www.w3schools.com/howto/howto_css_contact_form.asp
+            </a>
+            <p>
+                The modal used to display event information is inspired by
+                W3Schools' "CSS/JS Modal".
+            </p>
+            <a href="https://www.w3schools.com/howto/howto_css_modals.asp">
+                https://www.w3schools.com/howto/howto_css_modals.asp
+            </a>
+            <p>
+                The Web API used to add events to the Event Calendar is inspired
+                by Lab07 for CIS 3308.
+            </p>
+            <a href="http://cis-linux2.temple.edu/~sallyk/cis3308/07_insert/insert_lab_activity1_de.html">
+                http://cis-linux2.temple.edu/~sallyk/cis3308/07_insert/insert_lab_activity1_de.html
+            </a>
+            <p>
+                The Web API used to fetch and display events on the Event Calendar
+                is inspired by Lab05 for CIS 3308.
+            </p>
+            <a href="http://cis-linux2.temple.edu/~sallyk/cis3308/05_webAPIs/webAPI_activity_yr.html">
+                http://cis-linux2.temple.edu/~sallyk/cis3308/05_webAPIs/webAPI_activity_yr.html
+            </a>
+        </div>
 
         <div id ="footer"> Madilyn Simons </div>
 
-
         <script src="js/routeFw.js"></script>
         <script src="js/ajax.js"></script>
-        <script src="js/GetEventData.js"></script>
-
-        <script>
-            "use strict";
-            
-            console.log("Starting!");
-            var myRoutes = [];
-
-            myRoutes["#/"] = GetEventData;
-
-            var myRoutes = routeFw({
-                routeArray: myRoutes,
-                contentId: "content"
-            });
-
-           myRoutes.printRoutes();
-        </script>
 
     </body>
 </html>

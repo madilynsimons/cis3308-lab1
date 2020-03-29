@@ -1,5 +1,77 @@
-function MakeEventCalendar(id, tableName){
-    
+function MakeEventCalendar(params){
+
+    if(!params.id){
+        alert("parameter object must have an 'id' property");
+        return;
+    }
+
+    if(!params.tableName){
+        alert("parameter object must have a 'tableName property");
+        return;
+    }
+
+    if(!params.dbUrl){
+      alert("parameter object must have a 'dbUrl' property");
+      return;
+    }
+
+    function ajax(url, callBackSuccess, errorId){
+      var httpReq;
+      if(window.XMLHttpRequest){
+        httpReq = new XMLHttpRequest();
+      } else if(window.ActiveXObject){
+        httpReq = new ActiveXObject("Microsoft.XMLHTTP");
+      } else {
+        alert('ajax not supported');
+      }
+
+      httpReq.open("GET", url);
+      httpReq.onreadystatechange = dataReady;
+      httpReq.send(null);
+
+      function dataReady(){
+        if(httpReq.readyState === 4){
+          if(httpReq.status === 200){
+            var jsonData = httpReq.responseText;
+
+            console.log("Data retrieved from AJAX call: ");
+            console.log(jsonData);
+
+            var jsObj = JSON.parse(jsonData);
+            callBackSuccess(jsObj);
+          }else{
+            document.getElementById(errorId).innerHTML = "Error (" + httpReq.status + " " + httpReq.statusText +
+                    ") while attempting to read '" + url + "'. NOTE: You must RUN not VIEW the page when using AJAX.";
+          }
+        }
+      }
+    } // end of ajax()
+
+    function GetEventInfo(eventsList, eventDate){
+      var text = "<h1>" + eventDate.toLocaleDateString("en-US") + "</h1>";
+
+      for(var j = 0; j < eventsList.length; j++){
+        var date = new Date(Date.parse(eventsList[j].date));
+        if(date.getDate() == eventDate.getDate()
+                && date.getMonth() == eventDate.getMonth()
+                && date.getFullYear() == eventDate.getFullYear()){
+            text += "<h2>" + eventsList[j].name + "</h2>";
+            if(eventsList[j].location.length > 0){
+                text += "<p>Where: " + eventsList[j].location + "</p>";
+            }else{
+                text += "<p>Where: Unknown</p>";
+            }
+        }
+      }
+      return text;
+    } // end of GetEventInfo
+
+    var id = params.id;
+    var tableName = params.tableName;
+    var dbUrl = encodeURIComponent(params.dbUrl);
+
+    var primaryColor = "rgb(2, 61, 118)";
+
     var rightNow = new Date();
     var year = rightNow.getFullYear();
     var month = rightNow.getMonth();
@@ -62,29 +134,38 @@ function MakeEventCalendar(id, tableName){
     }
 
     function UpdateCalendar(){
-      
+
       var monthName = GetMonthName(month);
       monthTitle.innerHTML = monthName + " " + year;
 
       var hasEvents = new Array(32);
-      var myUrl = "webAPIs/listEventsAPI.jsp?tableName=" + tableName;
-      ajax(myUrl, getDays, "event_calendar");
+      var myUrl = "webAPIs/listEventsAPI.jsp?tableName="
+                    + tableName
+                    + "&dbUrl="
+                    + dbUrl;
+      ajax(myUrl, getDays, id);
+
+
       function getDays(obj){
-          
+
         // TODO -- check for error
-          
-        var eventsList = obj.eventList; 
-          
+
+        var eventsList = obj.eventList;
+
         for(var j = 0; j < eventsList.length; j++){
-            
+
             var eventDate = new Date(Date.parse(eventsList[j].date));
             var eventYear = eventDate.getFullYear();
             var eventMonth = eventDate.getMonth();
             var eventDay = eventDate.getDate();
-          
+
           if(eventYear == year && eventMonth == month){
             hasEvents[eventDay] = 200;
           }
+        }
+
+        while(calendarDays.firstChild){
+          calendarDays.removeChild(calendarDays.firstChild);
         }
 
         var d = new Date();
@@ -92,10 +173,6 @@ function MakeEventCalendar(id, tableName){
         d.setMonth(month);
         d.setYear(year);
         d.setDate(i);
-
-        while(calendarDays.firstChild){
-          calendarDays.removeChild(calendarDays.firstChild);
-        }
 
         var firstDayOfTheMonth = d.getDay();
         for(var j = 0; j < firstDayOfTheMonth; j++){
@@ -109,7 +186,7 @@ function MakeEventCalendar(id, tableName){
             if(hasEvents[i] == 200){
               var dayHighlight = document.createElement("span");
               dayHighlight.setAttribute('class', 'active');
-              dayHighlight.setAttribute('style', 'cursor: pointer;');
+              dayHighlight.setAttribute('style', 'cursor: pointer; background: ' + primaryColor);
               dayHighlight.innerHTML = i;
 
               var modal = document.createElement("div");
@@ -133,9 +210,9 @@ function MakeEventCalendar(id, tableName){
 
               dayHighlight.onclick = function(){
                 modal.style.display = "block";
-                
+
                 var clickedDate = new Date(year, month, this.innerHTML);
-                modalText.innerHTML = DisplayEvents(eventsList, clickedDate);
+                modalText.innerHTML = GetEventInfo(eventsList, clickedDate);
               }
               day.appendChild(dayHighlight);
 
@@ -151,8 +228,9 @@ function MakeEventCalendar(id, tableName){
     }
 
     var calendarHeader = document.createElement("div");
-    calendarHeader.setAttribute('id', 'calendarHeader');
+    calendarHeader.setAttribute('id', 'calendarHeader'); // TODO -- dont do this lol
     calendarHeader.setAttribute('class', 'month');
+    calendarHeader.setAttribute('style', 'background: '+ primaryColor);
 
     var monthList = document.createElement("ul");
     calendarHeader.appendChild(monthList);
@@ -190,7 +268,7 @@ function MakeEventCalendar(id, tableName){
 
     var calendarWeekdays = document.createElement("ul");
     calendarWeekdays.setAttribute('class', 'weekdays');
-    calendarWeekdays.setAttribute('id', 'calendarWeekdays');
+    calendarWeekdays.setAttribute('id', 'calendarWeekdays'); // TODO -- dont do this
 
     var weekdays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
     for(var i = 0; i < weekdays.length; i++){
@@ -201,13 +279,13 @@ function MakeEventCalendar(id, tableName){
 
     var calendarDays = document.createElement("ul");
     calendarDays.setAttribute('class', 'days');
-    calendarDays.setAttribute('id', 'calendarDays');
+    calendarDays.setAttribute('id', 'calendarDays'); // TODO -- dont do this
 
     UpdateCalendar();
 
     var eventSubmissionForm = document.createElement("div");
     eventSubmissionForm.setAttribute('style', 'padding-top:10px');
-    eventSubmissionForm.setAttribute('id', 'eventSubmissionForm');
+    eventSubmissionForm.setAttribute('id', 'eventSubmissionForm'); // TODO -- dont do this
 
     var actionPage = document.createElement("form");
     actionPage.setAttribute('action', '/action_page.php');
@@ -247,25 +325,27 @@ function MakeEventCalendar(id, tableName){
 
     var submitButton = document.createElement("div");
     submitButton.setAttribute('class', 'submitbutton');
+    submitButton.setAttribute('style', 'background-color:'+ primaryColor);
     submitButton.innerHTML = "Submit";
     actionPage.appendChild(submitButton);
-    
+
     submitButton.onclick = function(){
         var eventInputObj = {
-          "eventId" : "",
           "name" : eventNameInput.value,
           "date": dateInput.value,
           "location": locationInput.value,
         };
         var myData = escape(JSON.stringify(eventInputObj));
-        var url = "webAPIs/insertEventSimpleAPI.jsp?jsonData=" + myData
-            + "&tableName=" + tableName;
-        ajax(url, insertReqGood, "recordError");
-        
-        function insertReqGood(httpRequest) {
-            // TODO -- check for errors
-            UpdateCalendar();
+        var url = "webAPIs/insertEventSimpleAPI.jsp?jsonData="
+            + myData
+            + "&tableName="
+            + tableName
+            + "&dbUrl="
+            + dbUrl;
+        ajax(url, insertReqGood, id);
 
+        function insertReqGood(httpRequest) {
+            UpdateCalendar();
         }
     }
 
@@ -276,4 +356,23 @@ function MakeEventCalendar(id, tableName){
 
     document.getElementById(id).appendChild(submitEventsTitle);
     document.getElementById(id).appendChild(eventSubmissionForm);
+
+    var widget = {}
+
+    widget.changeColor = function(newColor){
+        primaryColor = newColor;
+        calendarHeader.setAttribute('style', 'background: '+ primaryColor);
+        submitButton.setAttribute('style', 'background-color:'+ primaryColor);
+        UpdateCalendar();
+    };
+
+    widget.changeCalendarTitle = function(newTitle){
+      pageTitle.innerHTML = newTitle;
+    };
+
+    widget.changeFormTitle = function(newTitle){
+      submitEventsTitle.innerHTML = newTitle;
+    };
+
+    return widget;
 }

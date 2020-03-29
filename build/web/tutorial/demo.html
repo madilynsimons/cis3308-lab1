@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choWose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Proof of Concept</title>
+
+        <link href="style/myStyle.css" rel="stylesheet" type="text/css" />
+        <link href="style/eventCalendar.css" rel="stylesheet" type="text/css"/>
+
+    </head>
+    <body>
+
+        <div id="titleNav">
+
+            <!-- Title -->
+            <div id="title">Event Calendar Demo</div>
+          </div>
+
+
+        <!-- Content -->
+        <div id ="content">
+            <div id="calendar1"></div>
+            <div id="calendar2"></div>
+        </div>
+
+        <div id ="footer"> Madilyn Simons </div>
+
+        <script src="js/MakeEventCalendar.js"></script>
+
+        <script>
+          var params1 = {
+              id: "calendar1",
+              tableName: "event",
+              dbUrl: "jdbc:mysql://localhost:3307/SP20_3308_tug34641?user=tug34641&password=sheavahk"
+          };
+          var cal1 = MakeEventCalendar(params1);
+          cal1.changeColor("rgb(255, 0, 0)");
+          cal1.changeCalendarTitle("Skate Park Meet-Ups");
+          cal1.changeFormTitle("Planning a meet-up?  Add it to our calendar!");
+
+          var params2 = {
+            id: "calendar2",
+            tableName: "birthday",
+            dbUrl: "jdbc:mysql://localhost:3307/SP20_3308_tug34641?user=tug34641&password=sheavahk"
+          }
+          var cal2 = MakeEventCalendar(params2);
+          cal2.changeColor("rgb(255, 0, 239)");
+          cal2.changeCalendarTitle("Birthdays!");
+          cal2.changeFormTitle("Add your birthday here :)")
+          
+        </script>
+
+    </body>
+</html>
