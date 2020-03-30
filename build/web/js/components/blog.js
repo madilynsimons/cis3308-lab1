@@ -265,7 +265,19 @@ function blog(id){
             "since there is no other way it can demo.  Too many things need to be installed to " +
             "utilize what I've implemented.  I hope this is okay.  I did specifically say that " +
             "I wanted to connect my component to a database during both of my project proposals " +
-            "(the project proposal homework and the Canvas blog post) and these were both approved.";
+            "(the project proposal homework and the Canvas blog post) and these were both approved." +
+            "<br> <br>" +
+            "<a href=\"tutorial/index.html\"> " +
+            "     Tutorial" +
+            "</a> " +
+            "<br> <br> " +
+            "<a href=\"tutorial/download/demo.html\"> " +
+            "     demo.html" +
+            "</a> " +
+            "<br> <br> " +
+            "<a href=\"tutorial/download.zip\"> " +
+            "     download.zip" +
+            "</a> ";
 
     blog7.appendChild(blog7body);
 
