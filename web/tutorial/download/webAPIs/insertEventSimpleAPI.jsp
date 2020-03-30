@@ -53,7 +53,7 @@
             // into corresponding field of errorMsgs.
             errorMsgs.name = ValidationUtils.stringValidationMsg(insertData.name, 50, true);
             errorMsgs.date = ValidationUtils.stringValidationMsg(insertData.date, 50, true);
-            errorMsgs.location = ValidationUtils.stringValidationMsg(insertData.location, 50, true);
+            errorMsgs.location = ValidationUtils.stringValidationMsg(insertData.location, 50, false);
 
             if (errorMsgs.getCharacterCount() > 0) {  // at least one field has an error, don't go any further.
                 errorMsgs.errorMsg = "Please try again";

@@ -1,5 +1,6 @@
 function blog(id){
     var content = `
+        <div id="blog7" style="margin: 10px"></div>
         <div id="blog6" style="margin: 10px"></div>
         <div id="blog5" style="margin: 10px"></div>
         <div id="blog4" style="margin: 10px"></div>
@@ -8,14 +9,14 @@ function blog(id){
         <div id="blog1" style="margin: 10px"></div>
     `;
     document.getElementById(id).innerHTML = content;
-    
+
     var blog1 = document.getElementById("blog1");
     var title1 = document.createElement("h2");
     title1.innerHTML = "HW2: My Routing Experience";
     blog1.appendChild(title1);
-    
+
     var blog1body = document.createElement("p");
-    blog1body.innerHTML = 
+    blog1body.innerHTML =
             "I found this portion to be relatively easy.  Although " +
             "I dont have a lot of experience with html and javascript, " +
             "I do have a lot of experience with data structures, " +
@@ -32,13 +33,13 @@ function blog(id){
             "I learned how routing works and I became more familiar " +
             "and comfortable with Javascript and HTML.";
     blog1.appendChild(blog1body);
-    
+
     var blog2 = document.getElementById("blog2");
-   
+
     var title2 = document.createElement("h2");
     title2.innerHTML = "HW2: My Database Experience";
     blog2.appendChild(title2);
-    
+
     var blog2body = document.createElement("p");
     blog2body.innerHTML = "I think the database portion was more difficult than " +
                         "the routing portion of the homework.  Creating my " +
@@ -58,14 +59,14 @@ function blog(id){
                         "<a href=\"docs/MSimonsHW2.pdf\">" +
                         "    Here is a link to the associated document." +
                         "</a>";
-    
+
     blog2.appendChild(blog2body);
-    
+
     var blog3 = document.getElementById("blog3");
     var title3 = document.createElement("h2");
     title3.innerHTML = "HW3: Data Display Homework";
     blog3.appendChild(title3);
-    
+
     var blog3body = document.createElement("p");
     blog3body.innerHTML = "For this homework assignment, I was able to familiarize " +
                         "myself with HTML tables.  This was a good assignment " +
@@ -91,20 +92,20 @@ function blog(id){
                         "<br> <br> " +
                         "<a href=\"json/allWebUsers.json\">" +
                         "      allWebUsers.json" +
-                        "</a>" + 
+                        "</a>" +
                         "<br> <br> " +
                         "<a href=\"json/parks.json\">" +
                         "      parks.json" +
                         "</a>";
     blog3.appendChild(blog3body);
-    
-    
+
+
     var blog4 = document.getElementById("blog4");
     var title4 = document.createElement("h2");
     title4.innerHTML = "HW4: Tutorial Proposal";
     blog4.appendChild(title4);
-    
-    
+
+
     var blog4body = document.createElement("p");
 
     blog4body.innerHTML = "My favorite part of this assignment was creating a " +
@@ -147,18 +148,18 @@ function blog(id){
                         "  Here is a link to my Proof of Concept." +
                         "</a>";
     blog4.appendChild(blog4body);
-    
+
     var blog5 = document.getElementById("blog5");
     var title5 = document.createElement("h2");
     title5.innerHTML = "HW5: Web APIs";
     blog5.appendChild(title5);
-    
+
     var blog5body = document.createElement("p");
-    
+
     blog5body.innerHTML = "I had never written any server-side code before this " +
             "class.  The only server-side code I've written are the jsp files I " +
             "wrote for selecting users and parks data from my database. " +
-            "<br> <br> " + 
+            "<br> <br> " +
             "This week I learned about JavaServer Pages.  I found this interesting " +
             "since I am far more familiar with Java than I am with any of the other " +
             "languages we've worked with in class.  It was also interesting because " +
@@ -184,15 +185,15 @@ function blog(id){
             "     Parks Database API" +
             "</a> ";
     blog5.appendChild(blog5body);
-    
+
     var blog6 = document.getElementById("blog6");
     var title6 = document.createElement("h2");
     title6.innerHTML = "HW6: Log On";
     blog6.appendChild(title6);
-    
+
     var blog6body = document.createElement("p");
-    
-    blog6body.innerHTML = "I think the most confusing part of this assignment " + 
+
+    blog6body.innerHTML = "I think the most confusing part of this assignment " +
             "was wrapping my head around the order in which different components " +
             "were called.  For example, when logging in, users use logon.loginUI " +
             "to enter their email and password.  Then, they press the Submit button, " +
@@ -224,8 +225,49 @@ function blog(id){
             "<a href=\"webAPIs/listUsersAPI.jsp\"> " +
             "     Get All Users" +
             "</a> ";
-    
+
     blog6.appendChild(blog6body);
-    
-    
+
+    var blog7 = document.getElementById("blog7");
+    var title7 = document.createElement("h2");
+    title7.innerHTML = "HW7: JavaScript Component Tutorial";
+    blog7.appendChild(title7);
+
+    var blog7body = document.createElement("p");
+
+    blog7body.innerHTML = "This homework assignment was definitely different from " +
+            "every previous assignment and probably the largest assignment I've completed " +
+            "in this class yet.  It was both interesting and challenging because " +
+            "I was able to implement a little bit of everything I have learned throughout " +
+            "the semester." +
+            "<br> <br>" +
+            "I created a Javascript component that reads events from a database " +
+            "and displays them inside of a calendar.  It also has fields that allow " +
+            "users to add their own events to the database so new events can be " +
+            "displayed in the calendar." +
+            "<br> <br>" +
+            "I think the hardest part of this assignment was generalizing all of the " +
+            "Web APIs we had worked with in the past.  I essentially had to rewrite " +
+            "the Insert Web API, the List Web API, and parts of DbConn.java.  " +
+            "I generalized them as well so that web developers could use my " +
+            "component with their own databases." +
+            "<br> <br>" +
+            "I'm pretty proud of myself for being able to accomplish this though.  " +
+            "I had to touch on a lot of different types of code, including Java classes, " +
+            "Java Server Pages, MySQL, JavaScript, and CSS just for this one component." +
+            "<br> <br>" +
+            "I would like to note that I have carefully read over the rubric and the " +
+            "specifications for this assignment and I'm afraid that a few of the " +
+            "specifications do not make sense for my particular component.  My component " +
+            "relies on AJAX, the GSON and MySQL Driver JAR files, several Java classes, " +
+            "and two Java Server Pages.  It doesn't make sense to upload my demo as a few " +
+            "standalone files.  For download.zip, I uploaded a small NetBeans Web Application " +
+            "since there is no other way it can demo.  Too many things need to be installed to " +
+            "utilize what I've implemented.  I hope this is okay.  I did specifically say that " +
+            "I wanted to connect my component to a database during both of my project proposals " +
+            "(the project proposal homework and the Canvas blog post) and these were both approved.";
+
+    blog7.appendChild(blog7body);
+
+
 }

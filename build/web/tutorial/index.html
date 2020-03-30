@@ -7,8 +7,8 @@ and open the template in the editor.
 <html>
     <head>
         <title>My Tutorial</title>
-        <link href="style/myStyle.css" rel="stylesheet" type="text/css" />
-        <link href="style/dropdownStyle.css" rel="stylesheet" type="text/css" />
+        <link href="../style/myStyle.css" rel="stylesheet" type="text/css" />
+        <link href="../style/dropdownStyle.css" rel="stylesheet" type="text/css" />
 
         <style>
             table, th, td {
@@ -64,27 +64,35 @@ and open the template in the editor.
             <table>
                 <tr>
                     <th>Column</th>
+                    <th>Indexes</th>
                     <th>Type</th>
                     <th>Nullable</th>
                 </tr>
+                    <td>event_id</td>
+                    <td>PRIMARY</td>
+                    <td>INT</td>
+                    <td>NO</td>
                 <tr>
                     <td>name</td>
+                    <td></td>
                     <td>VARCHAR(45)</td>
                     <td>NO</td>
                 </tr>
                 <tr>
                     <td>date</td>
+                    <td></td>
                     <td>DATE</td>
                     <td>NO</td>
                 </tr>
                 <tr>
                     <td>location</td>
+                    <td></td>
                     <td>VARCHAR(45)</td>
                     <td>YES</td>
                 </tr>
             </table>
 
-            <h3>Install Java Files and Java Server Pages</h3>
+            <h3>Install Java Files, Java Server Pages, and JAR Files</h3>
             <p>
                 First, save the dbUtils, model.event, and view packages to your
                 src directory.  Afterwards, your src directory should include the
@@ -111,6 +119,10 @@ and open the template in the editor.
                 <li>web/webAPIs/insertEventsAPIs.jsp</li>
             </ul>
 
+            <p>
+              Finally, save gson-2.6.2.jar and mysql-connector-java-5.1.14-bin.jar in your libraries.
+            </p>
+
             <h3>Add an Event Calendar to Your HTML Page</h3>
             <p>
                 First, create a div in your page's body and give it some id.
@@ -128,18 +140,20 @@ and open the template in the editor.
             </pre>
             <p>
                 Last, call MakeEventCalendar() using the script tag.
-                MakeEventCalendar() takes one parameter object with two
+                MakeEventCalendar() takes one parameter object with three
                 REQUIRED properties:
             </p>
             <ol>
                 <li>params.id is set to the id of the div that'll contain the event calendar</li>
                 <li>params.tableName is set to the name of the event table</li>
+                <li>params.dbUrl is the URL to your database</li>
             </ol>
             <pre>
 &lt;script&gt;
     var params;
     params.id = "myEventCalendar";
     params.tableName = "event";
+    params.dbUrl = "jdbc:mysql://localhost:3307/SP20_3308_tug34641?user=tug34641&password=sheavahk";
     var eventCalendar = MakeEventCalendar(params);
 &lt;/script&gt;
             </pre>
@@ -161,11 +175,12 @@ and open the template in the editor.
 
 
             <h2>Working Example</h2>
-            <p>Click the link below for an Event Calendar demo!</p>
-            <a href="TODO.txt">EventCalendarDemo.zip</a>
+            <p>Click the link below to see an Event Calendar demo.</p>
+            <a href="download/demo.html">demo.html</a>
+            <p>Click the link below to download your own Event Calendar demo.</p>
+            <a href="download.zip">download.zip</a>
 
             <h2> How It Works</h2>
-            <h3>UpdateCalendar()</h3>
             <p>
                 A function inside of MakeEventCalendar.js called
                 UpdateCalendar() is called when the Event Calendar is first
@@ -189,8 +204,8 @@ var hasEvents = Array(32);
                 process is complete, a function called getDays() is called.
             </p>
             <pre>
-var myUrl = "webAPIs/listEventsAPI.jsp?tableName=" + tableName;
-ajax(myUrl, getDays, "event_calendar");
+var myUrl = "webAPIs/listEventsAPI.jsp?tableName=" + tableName + "&dbUrl=" + dbUrl;
+ajax(myUrl, getDays, id);
             </pre>
             <p>
                 The first thing getDays() does is traverse through the events
@@ -280,13 +295,11 @@ function getDays(obj){
         };
         var myData = escape(JSON.stringify(eventInputObj));
         var url = "webAPIs/insertEventSimpleAPI.jsp?jsonData=" + myData
-            + "&tableName=" + tableName;
-        ajax(url, insertReqGood, "recordError");
+            + "&tableName=" + tableName + "&dbUrl=" + dbUrl;
+        ajax(url, insertReqGood, id);
 
         function insertReqGood(httpRequest) {
-            // TODO -- check for errors
             UpdateCalendar();
-
         }
     }
             </pre>
@@ -328,9 +341,6 @@ function getDays(obj){
         </div>
 
         <div id ="footer"> Madilyn Simons </div>
-
-        <script src="js/routeFw.js"></script>
-        <script src="js/ajax.js"></script>
 
     </body>
 </html>
