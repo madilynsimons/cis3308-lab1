@@ -288,13 +288,41 @@ var users = {};
         var ddList = document.getElementById("rolePickList");
 
         // create a user object from the values that the user has typed into the page.
+        var membershipFee = document.getElementById("membershipFee").value;
+        if(membershipFee){
+            if(membershipFee.length > 0){
+                if(membershipFee.charAt(0) == "$"){
+                    membershipFee = membershipFee.substring(1);
+                }
+            }
+        }
+        
+        var birthday = document.getElementById("birthday").value;
+        if(birthday){
+            var birthdayParsed = Date.parse(birthday);
+            if(!isNaN(birthdayParsed)){
+                var birthdayDate = new Date(birthday);
+                var month = (birthdayDate.getMonth()+1).toString();
+                var date = birthdayDate.getDate().toString();
+                var year = birthdayDate.getFullYear().toString();
+                
+                if(month.length == 1){
+                    month = "0" + month;
+                }
+                if(date.length == 1){
+                    date = "0" + date;
+                }
+                birthday = month + "/" + date + "/" + year;
+            }
+        }
+        
         var userInputObj = {
             "webUserId": document.getElementById("webUserId").value,
             "userEmail": document.getElementById("userEmail").value,
             "userPassword": document.getElementById("userPassword").value,
             "userPassword2": document.getElementById("userPassword2").value,
-            "birthday": document.getElementById("birthday").value,
-            "membershipFee": document.getElementById("membershipFee").value,
+            "birthday": birthday,
+            "membershipFee": membershipFee,
 
             // Modification here for role pick list
             //"userRoleId": document.getElementById("userRoleId").value,

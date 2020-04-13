@@ -53,11 +53,14 @@ public class ValidationUtils {
         if ((val.length() == 0) && !required) {
             return "";  // Since this field is not required, empty string is valid user entry.
         }
+        if(val.charAt(0) == '$'){
+            val = val.substring(1);
+        }
         try {
             java.math.BigDecimal convertedDecimal = new java.math.BigDecimal(val); // not using (on purpose).
             return "";
         } catch (Exception e) {
-            return "Please enter an dollar amount";
+            return "Please enter a dollar amount";
         }
     } // decimalValidationMsg()
 
