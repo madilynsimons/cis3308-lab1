@@ -78,6 +78,7 @@ var users = {};
                 parent: div
             });
             searchBox.type = "text";
+            searchBox.style.width = "200px";
             //searchBox.setAttribute("type", "text");  // same thing...
 
             var deleteErrorMsg = Utils.make({

@@ -1,5 +1,6 @@
 function blog(id){
     var content = `
+        <div id="blog8" style="margin: 10px"></div>
         <div id="blog7" style="margin: 10px"></div>
         <div id="blog6" style="margin: 10px"></div>
         <div id="blog5" style="margin: 10px"></div>
@@ -280,6 +281,37 @@ function blog(id){
             "</a> ";
 
     blog7.appendChild(blog7body);
+
+    var blog8 = document.getElementById("blog8");
+    var title8 = document.createElement("h2");
+    title8.innerHTML = "HW8: Update List Interaces";
+    blog8.appendChild(title8);
+
+    var blog8body = document.createElement("p");
+
+    blog8body.innerHTML = "This homework reiterated a lot of the concepts " +
+            "that I had to familiarize myself with for my Javascript component.  " +
+            "My Javascript component included a user interface to add data to " +
+            "a database to display events on a calendar.  For this assignment, " +
+            "there was a user interface to add data to the User and Park databases, " +
+            "which was then displayed on the table interface." +
+            "<br> <br> " +
+            "The most difficult part of this assignment was adding the web_user data " +
+            "to my park-related APIs.  Creating an API that fetches data from the " +
+            "park database, adds data to it, and modifies data in it is a straight " +
+            "forward task.  However, tying in the web user data added an extra challenge." +
+            "<br> <br> " +
+            "The easiest part of the assignment was probably the Javascript component to " +
+            "the assignment.  Grabbing data from the UI and sending it to the APIs is " +
+            "simple enough.  It was creating and modifying the APIs themselves that was "+
+            "the difficult part." + 
+            "<br> <br> " +
+            "<a href=\"pics/data_model.png\"> " +
+            "     Park Data Model" +
+            "</a> ";
+
+
+    blog8.appendChild(blog8body);
 
 
 }
