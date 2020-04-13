@@ -227,7 +227,7 @@ var parks = {};
         createInsertUpdateArea(false, targetId); // first param is isUpdate (boolean)
 
         ajax2({
-            url: "webAPIs/getRolesAPI.jsp",
+            url: "webAPIs/getUsersAPI.jsp",
             successFn: setUserPickList,
             errorId: "webUserIdError"
         });
@@ -241,11 +241,12 @@ var parks = {};
                 document.getElementById("webUserIdError").innerHTML = jsonObj.dbError;
                 return;
             }
+            var userList = jsonObj.webUserList;
 
             Utils.makePickList({
                 id: "userPickList", // id of select tag on the page
-                list: jsonObj.userList, // JS array that holds the objects to populate the select tag
-                valueProp: "webUserEmail", // field name of objects in list that holds the values of the select tag options
+                list: userList, // JS array that holds the objects to populate the select tag
+                valueProp: "userEmail", // field name of objects in list that holds the values of the select tag options
                 keyProp: "webUserId"      // field name of objects in list that holds the keys of the options
             });
 
