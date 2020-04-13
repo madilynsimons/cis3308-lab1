@@ -285,12 +285,15 @@ var parks = {};
         // New code for handling role pick list.
         var ddList = document.getElementById("userPickList");
 
+        var cost = document.getElementById("cost").value;
+        cost = cost.replace("$", "");
+
         var parkInputObj = {
             "parkId": document.getElementById("parkId").value,
             "name": document.getElementById("name").value,
             "description": document.getElementById("description").value,
             "rating": document.getElementById("rating").value,
-            "cost": document.getElementById("cost").value,
+            "cost": cost,
 
             // Modification here for role pick list
             //"userRoleId": document.getElementById("userRoleId").value,

@@ -53,9 +53,6 @@ public class ValidationUtils {
         if ((val.length() == 0) && !required) {
             return "";  // Since this field is not required, empty string is valid user entry.
         }
-        if(val.charAt(0) == '$'){
-            val = val.substring(1);
-        }
         try {
             java.math.BigDecimal convertedDecimal = new java.math.BigDecimal(val); // not using (on purpose).
             return "";
@@ -107,10 +104,10 @@ public class ValidationUtils {
             System.out.println("ValidationUtils.integerConversion(): cannot convert " + val + " to Integer.");
             return null;
         }
-    } // integerConversion()   
+    } // integerConversion()
 
-    /* Check string "val" to see if it meets the db constraints (e.g., not emtpy string 
-     * if it is a required field, not longer than db allows). If OK, return "". 
+    /* Check string "val" to see if it meets the db constraints (e.g., not emtpy string
+     * if it is a required field, not longer than db allows). If OK, return "".
      * Otherwise, return error message. */
     public static String stringValidationMsg(String val, int maxlen, boolean required) {
 

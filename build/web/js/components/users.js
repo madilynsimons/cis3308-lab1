@@ -8,8 +8,8 @@ var users = {};
         var contentDOM = document.getElementById(targetId);
         contentDOM.innerHTML = "";
 
-        // Remember: getting a successful ajax call does not mean you got data. 
-        // There could have been a DB error (like DB unavailable). 
+        // Remember: getting a successful ajax call does not mean you got data.
+        // There could have been a DB error (like DB unavailable).
         ajax2({
             url: "webAPIs/listUsersAPI.jsp",
             successFn: success,
@@ -26,10 +26,10 @@ var users = {};
                 return;
             }
 
-            // Want the User List UI (plus headings and search filter) all to be centered. 
-            // Cannot be sure content area will be like this, so create a div inside of the 
-            // content area and set the div to be aligned center (HTML table will be styled 
-            // margin: auto to make it centered as well). 
+            // Want the User List UI (plus headings and search filter) all to be centered.
+            // Cannot be sure content area will be like this, so create a div inside of the
+            // content area and set the div to be aligned center (HTML table will be styled
+            // margin: auto to make it centered as well).
             var div = Utils.make({
                 htmlTag: "div",
                 parent: contentDOM
@@ -54,15 +54,15 @@ var users = {};
             img.src = CRUD_icons.insert;
             img.onclick = function () { // you cant pass input params directly into an event handler
 
-                // Originally I had this line of code here:  
+                // Originally I had this line of code here:
                 //     users.insertUI(targetId);
-                // And that worked (insert UI displayed and save worked), BUT, afterwards, if you tried to re-run 
-                // the user list, nothing would happen -- because this would cause no change in the 
-                // browser's address bar (the window.location.hash).  
-                // 
-                // The solution here is to invoke the user insert UI through a routing rule (since we 
-                // happen to have "user register" that can be directly invoked). 
-                // For "other" insert (even though you probably won't have a Nav Bar link for inserting "other", 
+                // And that worked (insert UI displayed and save worked), BUT, afterwards, if you tried to re-run
+                // the user list, nothing would happen -- because this would cause no change in the
+                // browser's address bar (the window.location.hash).
+                //
+                // The solution here is to invoke the user insert UI through a routing rule (since we
+                // happen to have "user register" that can be directly invoked).
+                // For "other" insert (even though you probably won't have a Nav Bar link for inserting "other",
                 // you may need to create a routing rule and invoke that similarly (from the "other" list UI).
                 window.location.hash = "#/userInsert";
             };
@@ -92,8 +92,8 @@ var users = {};
                 parent: div
             });
 
-            // create userList (new array of objects) to have only the desired properties of obj.webUserList. 
-            // Add the properties in the order you want them to appear in the HTML table.  
+            // create userList (new array of objects) to have only the desired properties of obj.webUserList.
+            // Add the properties in the order you want them to appear in the HTML table.
             var userList = [];
             for (var i = 0; i < obj.webUserList.length; i++) {
                 userList[i] = {}; // add new empty object to array
@@ -111,13 +111,13 @@ var users = {};
                 userList[i].errorMsg = obj.webUserList[i].errorMsg;
 
                 // *** NEW: ADD EXTRA COLUMN TO DELETE THE RECORD
-                // Note: this needs the word "icon" somewhere in userList[i].delete. Otherwise, the alignTableData function 
-                // of TableBuilder will try to turn the delete column (aleady an <img> tag complete with onclick function) 
+                // Note: this needs the word "icon" somewhere in userList[i].delete. Otherwise, the alignTableData function
+                // of TableBuilder will try to turn the delete column (aleady an <img> tag complete with onclick function)
                 // into an <img> tag.
 
-                // here we have single quote around the onclick function call. 
-                // Inside the single quote we need to put quotes around the value of targetId (which is content). 
-                // For this, we use the back tick and it works. 
+                // here we have single quote around the onclick function call.
+                // Inside the single quote we need to put quotes around the value of targetId (which is content).
+                // For this, we use the back tick and it works.
                 userList[i].update = "<img src='" + CRUD_icons.update + "' alt='update icon' onclick='users.updateUI(" +
                         userList[i].userId + ", `" + targetId + "` )' />";
                 userList[i].delete = "<img src='" + CRUD_icons.delete + "' alt='delete icon' onclick='users.delete(" +
@@ -128,11 +128,11 @@ var users = {};
 
             // ********************** function tableBuilder.build ***********************************
             // params.list: an array of objects that are to be built into an HTML table.
-            // params.target: reference to DOM object where HTML table is to be placed (by buildTable) -- 
+            // params.target: reference to DOM object where HTML table is to be placed (by buildTable) --
             //         (this is not the id string but actual reference like you get from method getElementById()
             // params.style: will be added as className to DOM element target,
             // params.orderPropName (string): name of property (of objects in list) for iniial sort
-            // params.reverse (boolean): if true, initial sort will be high to low (else low to high). 
+            // params.reverse (boolean): if true, initial sort will be high to low (else low to high).
             // params.imgWidth: any columns that hold image files will be turned into <img> tags with this width.
 
             tableBuilder.build({
@@ -287,16 +287,6 @@ var users = {};
         // New code for handling role pick list.
         var ddList = document.getElementById("rolePickList");
 
-        // create a user object from the values that the user has typed into the page.
-        var membershipFee = document.getElementById("membershipFee").value;
-        if(membershipFee){
-            if(membershipFee.length > 0){
-                if(membershipFee.charAt(0) == "$"){
-                    membershipFee = membershipFee.substring(1);
-                }
-            }
-        }
-        
         var birthday = document.getElementById("birthday").value;
         if(birthday){
             var birthdayParsed = Date.parse(birthday);
@@ -305,7 +295,7 @@ var users = {};
                 var month = (birthdayDate.getMonth()+1).toString();
                 var date = birthdayDate.getDate().toString();
                 var year = birthdayDate.getFullYear().toString();
-                
+
                 if(month.length == 1){
                     month = "0" + month;
                 }
@@ -315,7 +305,10 @@ var users = {};
                 birthday = month + "/" + date + "/" + year;
             }
         }
-        
+
+        var membershipFee = document.getElementById("membershipFee").value;
+        membershipFee = membershipFee.replace("$", "");
+
         var userInputObj = {
             "webUserId": document.getElementById("webUserId").value,
             "userEmail": document.getElementById("userEmail").value,
