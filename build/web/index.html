@@ -14,6 +14,7 @@ and open the template in the editor.
         <link href="style/clickSort.css" rel="stylesheet" type="text/css" />
         <link href="style/eventCalendar.css" rel="stylesheet" type="text/css"/>
         <link href="style/logon.css" rel="stylesheet" type="text/css" /> 
+        <link href="style/insertStyle.css" rel="stylesheet" type="text/css"/>
 
     </head>
     <body>
@@ -88,6 +89,9 @@ and open the template in the editor.
         <script src="js/MakeTable.js"></script>
         <script src="js/MakeEventCalendar.js"></script>
         <script src="js/DisplayEvents.js"></script>
+        <script src="js/Utils.js"></script>
+        <script src="js/CRUD_icons.js"></script>
+        <script src="js/MakeTableBuilder.js"></script>
 
         <!-- Routing scripts -->
         <script src="js/routeFw.js"></script>
@@ -105,12 +109,19 @@ and open the template in the editor.
             myRoutes["#/"] = home;
             myRoutes["#/home"] = home;
             myRoutes["#/blog"] = blog;
-            myRoutes["#/users"] = users;
-            myRoutes["#/parks"] = parks;
             myRoutes["#/events"] = events;
+            
             myRoutes["#/logon"] = logon.logonUI;
             myRoutes["#/profile"] = logon.profile;
             myRoutes["#/logout"] = logon.logout;
+            
+            myRoutes["#/users"] = users.list;
+            myRoutes["#/userInsert"] = users.insertUI;
+            myRoutes["#/userUpdate"] = function () {};
+            
+            myRoutes["#/parks"] = parks.list;
+            myRoutes["#/parkInsert"] = parks.insertUI;
+            myRoutes["#/parkUpdate"] = function () {};
 
             var myRoutes = routeFw({
                 routeArray: myRoutes,
@@ -118,6 +129,8 @@ and open the template in the editor.
             });
 
            myRoutes.printRoutes();
+           
+           var tableBuilder = MakeTableBuilder("icons/sortUpDown16.png");
 
         </script>
 

@@ -25,5 +25,9 @@
 }
 
 .clickSort td img { /* applies to any <img> tag in a <td> tag in any element classed "clickSort" */
-    width: 150px;
+    border-radius: 5px;
+}
+
+.data h2 {
+    text-align: center;
 }
