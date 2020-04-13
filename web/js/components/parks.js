@@ -95,9 +95,7 @@ var parks = {};
             // create userList (new array of objects) to have only the desired properties of obj.webUserList.
             // Add the properties in the order you want them to appear in the HTML table.
             var parkList = [];
-            console.log("Traversing obj.parkList");
             for (var i = 0; i < obj.parkList.length; i++) {
-                console.log(i);
                 parkList[i] = {}; // add new empty object to array
 
                 parkList[i].name = obj.parkList[i].name;
@@ -154,12 +152,12 @@ var parks = {};
     function createInsertUpdateArea (isUpdate, targetId) {
 
         // set variables as if it will be insert...
-        var webUserIdRowStyle = ' style="display:none" '; // hide row with webUserId
+        var parkIdRowStyle = ' style="display:none" '; // hide row with webUserId
         var saveFn = "parks.insertSave()";
 
         // change variables for update
         if (isUpdate) {
-            webUserIdRowStyle = ""; // don't hide row with webUserId
+            parkIdRowStyle = ""; // don't hide row with webUserId
             saveFn = "parks.updateSave()";
         }
 
@@ -167,45 +165,38 @@ var parks = {};
             <div id="insertArea">
                 <div id="ajaxError">&nbsp;</div>
                 <table>
-                    <tr ${webUserIdRowStyle}>
-                        <td>Web User Id</td>
-                        <td><input type="text"  id="webUserId" disabled /></td>
-                        <td id="webUserIdError" class="error"></td>
+                    <tr ${parkIdRowStyle}>
+                        <td>Park Id</td>
+                        <td><input type="text"  id="parkId" disabled /></td>
+                        <td id="parkIdError" class="error"></td>
                     </tr>
                     <tr>
-                        <td>Email Address</td>
-                        <td><input type="text"  id="userEmail" /></td>
-                        <td id="userEmailError" class="error"></td>
+                        <td>Name</td>
+                        <td><input type="text"  id="name" /></td>
+                        <td id="nameError" class="error"></td>
                     </tr>
                     <tr>
-                        <td>Password</td>
-                        <td><input type="password"  id="userPassword" /></td>
-                        <td id="userPasswordError" class="error"></td>
+                        <td>Description</td>
+                        <td><input type="text"  id="description" /></td>
+                        <td id="descriptionError" class="error"></td>
                     </tr>
                     <tr>
-                        <td>Retype Your Password</td>
-                        <td><input type="password" id="userPassword2" /></td>
-                        <td id="userPassword2Error" class="error"></td>
+                        <td>Rating</td>
+                        <td><input type="text" id="rating" /></td>
+                        <td id="ratingError" class="error"></td>
                     </tr>
                     <tr>
-                        <td>Birthday</td>
-                        <td><input type="text" id="birthday" /></td>
-                        <td id="birthdayError" class="error"></td>
+                        <td>Cost</td>
+                        <td><input type="text" id="cost" /></td>
+                        <td id="costError" class="error"></td>
                     </tr>
                     <tr>
-                        <td>Membership Fee</td>
-                        <td><input type="text" id="membershipFee" /></td>
-                        <td id="membershipFeeError" class="error"></td>
-                    </tr>
-                    <tr>
-                        <td>User Role</td>
+                        <td>Web User</td>
                         <td>
-                            <select id="rolePickList">
-                            <!-- JS code will make ajax call to get all the roles
-                            then populate this select tag's options with those roles -->
+                            <select id="userPickList">
                             </select>
                         </td>
-                        <td id="userRoleIdError" class="error"></td>
+                        <td id="webUserIdError" class="error"></td>
                     </tr>
                     <tr>
                         <td><button onclick="${saveFn}">Save</button></td>
@@ -222,7 +213,7 @@ var parks = {};
     parks.updateUI = function (webUserId, targetId) {
         createInsertUpdateArea(true, targetId); // first param is isUpdate (boolean)
         ajax2({
-            url: "webAPIs/getUserWithRolesAPI.jsp?id=" + webUserId,
+            url: "webAPIs/getParkWithUsersAPI.jsp?id=" + webUserId,
             successFn: proceed,
             errorId: "ajaxError"
         });
@@ -237,25 +228,25 @@ var parks = {};
 
         ajax2({
             url: "webAPIs/getRolesAPI.jsp",
-            successFn: setRolePickList,
-            errorId: "userRoleIdError"
+            successFn: setUserPickList,
+            errorId: "webUserIdError"
         });
 
-        function setRolePickList(jsonObj) {
+        function setUserPickList(jsonObj) {
 
-            console.log("setRolePickList was called, see next line for object holding list of roles");
+            console.log("setUserPickList was called, see next line for object holding list of roles");
             console.log(jsonObj);
 
             if (jsonObj.dbError.length > 0) {
-                document.getElementById("userRoleIdError").innerHTML = jsonObj.dbError;
+                document.getElementById("webUserIdError").innerHTML = jsonObj.dbError;
                 return;
             }
 
             Utils.makePickList({
-                id: "rolePickList", // id of select tag on the page
-                list: jsonObj.roleList, // JS array that holds the objects to populate the select tag
-                valueProp: "userRoleType", // field name of objects in list that holds the values of the select tag options
-                keyProp: "userRoleId"      // field name of objects in list that holds the keys of the options
+                id: "userPickList", // id of select tag on the page
+                list: jsonObj.userList, // JS array that holds the objects to populate the select tag
+                valueProp: "webUserEmail", // field name of objects in list that holds the values of the select tag options
+                keyProp: "webUserId"      // field name of objects in list that holds the keys of the options
             });
 
         } // setRolePickList
@@ -265,84 +256,57 @@ var parks = {};
 
     function dbDataToUI(obj) {
 
-        var webUserObj = obj.webUser;
-        var roleList = obj.roleInfo.roleList;
+      console.log("dbDataToUI was called");
+      console.log(obj);
 
-        document.getElementById("webUserId").value = webUserObj.webUserId;
-        document.getElementById("userEmail").value = webUserObj.userEmail;
-        document.getElementById("userPassword").value = webUserObj.userPassword;
-        document.getElementById("userPassword2").value = webUserObj.userPassword;
-        document.getElementById("birthday").value = webUserObj.birthday;
-        document.getElementById("membershipFee").value = webUserObj.membershipFee;
-        console.log("selected role id is " + webUserObj.userRoleId);
+        var parkObj = obj.park;
+        var userList = obj.userInfo.webUserList;
+
+        document.getElementById("parkId").value = parkObj.parkId;
+        document.getElementById("name").value = parkObj.name;
+        document.getElementById("description").value = parkObj.description;
+        document.getElementById("rating").value = parkObj.rating;
+        document.getElementById("cost").value = parkObj.cost;
+
+        console.log("selected web user id is " + parkObj.webUserId);
         Utils.makePickList({
-            id: "rolePickList", // id of <select> tag in UI
-            list: roleList, // JS array that holds objects to populate the select list
-            valueProp: "userRoleType", // field name of objects in list that hold the values of the options
-            keyProp: "userRoleId", // field name of objects in list that hold the keys of the options
-            selectedKey: webUserObj.userRoleId  // key that is to be pre-selected (optional)
+            id: "userPickList", // id of <select> tag in UI
+            list: userList, // JS array that holds objects to populate the select list
+            valueProp: "userEmail", // field name of objects in list that hold the values of the options
+            keyProp: "webUserId", // field name of objects in list that hold the keys of the options
+            selectedKey: parkObj.webUserId  // key that is to be pre-selected (optional)
         });
     }
 
     // a private function
-    function getUserDataFromUI() {
+    function getParkDataFromUI() {
 
         // New code for handling role pick list.
-        var ddList = document.getElementById("rolePickList");
+        var ddList = document.getElementById("userPickList");
 
-        // create a user object from the values that the user has typed into the page.
-        var membershipFee = document.getElementById("membershipFee").value;
-        if(membershipFee){
-            if(membershipFee.length > 0){
-                if(membershipFee.charAt(0) == "$"){
-                    membershipFee = membershipFee.substring(1);
-                }
-            }
-        }
-
-        var birthday = document.getElementById("birthday").value;
-        if(birthday){
-            var birthdayParsed = Date.parse(birthday);
-            if(!isNaN(birthdayParsed)){
-                var birthdayDate = new Date(birthday);
-                var month = (birthdayDate.getMonth()+1).toString();
-                var date = birthdayDate.getDate().toString();
-                var year = birthdayDate.getFullYear().toString();
-
-                if(month.length == 1){
-                    month = "0" + month;
-                }
-                if(date.length == 1){
-                    date = "0" + date;
-                }
-                birthday = month + "/" + date + "/" + year;
-            }
-        }
-
-        var userInputObj = {
-            "webUserId": document.getElementById("webUserId").value,
-            "userEmail": document.getElementById("userEmail").value,
-            "userPassword": document.getElementById("userPassword").value,
-            "userPassword2": document.getElementById("userPassword2").value,
-            "birthday": birthday,
-            "membershipFee": membershipFee,
+        var parkInputObj = {
+            "parkId": document.getElementById("parkId").value,
+            "name": document.getElementById("name").value,
+            "description": document.getElementById("description").value,
+            "rating": document.getElementById("rating").value,
+            "cost": document.getElementById("cost").value,
 
             // Modification here for role pick list
             //"userRoleId": document.getElementById("userRoleId").value,
-            "userRoleId": ddList.options[ddList.selectedIndex].value,
+            "webUserId": ddList.options[ddList.selectedIndex].value,
 
-            "userRoleType": "",
+            "webUserEmail": "",
             "errorMsg": ""
         };
 
-        console.log(userInputObj);
+        console.log(parkInputObj);
 
         // JSON.stringify converts the javaScript object into JSON format
         // (the reverse operation of what gson does on the server side).
         //
         // Then, you have to encode the user's data (encodes special characters
         // like space to %20 so the server will accept it with no security error.
-        return encodeURIComponent(JSON.stringify(userInputObj));
+        return encodeURIComponent(JSON.stringify(parkInputObj));
         //return escape(JSON.stringify(userInputObj));
     }
 
@@ -350,12 +314,12 @@ var parks = {};
         console.log("here is JSON object (holds error messages.");
         console.log(jsonObj);
 
-        document.getElementById("userEmailError").innerHTML = jsonObj.userEmail;
-        document.getElementById("userPasswordError").innerHTML = jsonObj.userPassword;
-        document.getElementById("userPassword2Error").innerHTML = jsonObj.userPassword2;
-        document.getElementById("birthdayError").innerHTML = jsonObj.birthday;
-        document.getElementById("membershipFeeError").innerHTML = jsonObj.membershipFee;
-        document.getElementById("userRoleIdError").innerHTML = jsonObj.userRoleId;
+        document.getElementById("parkIdError").innerHTML = jsonObj.parkId;
+        document.getElementById("nameError").innerHTML = jsonObj.name;
+        document.getElementById("descriptionError").innerHTML = jsonObj.description;
+        document.getElementById("ratingError").innerHTML = jsonObj.rating;
+        document.getElementById("costError").innerHTML = jsonObj.cost;
+        document.getElementById("webUserIdError").innerHTML = jsonObj.webUserId;
         document.getElementById("recordError").innerHTML = jsonObj.errorMsg;
     }
 
@@ -364,10 +328,10 @@ var parks = {};
         console.log("parks.insertSave was called");
 
         // create a user object from the values that the user has typed into the page.
-        var myData = getUserDataFromUI();
+        var myData = getParkDataFromUI();
 
         ajax2({
-            url: "webAPIs/insertUserAPI.jsp?jsonData=" + myData,
+            url: "webAPIs/insertParkAPI.jsp?jsonData=" + myData,
             successFn: processInsert,
             errorId: "recordError"
         });
@@ -391,10 +355,10 @@ var parks = {};
      console.log("parks.updateSave was called");
 
         // create a user object from the values that the user has typed into the page.
-        var myData = getUserDataFromUI();
+        var myData = getParkDataFromUI();
 
         ajax2({
-            url: "webAPIs/updateUserAPI.jsp?jsonData=" + myData,
+            url: "webAPIs/updateParkAPI.jsp?jsonData=" + myData,
             successFn: processInsert,
             errorId: "recordError"
         });
