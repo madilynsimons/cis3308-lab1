@@ -80,7 +80,7 @@ public final class getParkWithUsersAPI_jsp extends org.apache.jasper.runtime.Htt
     }
     // This object (from the GSON library) can to convert between JSON <-> POJO (plain old java object)
     Gson gson = new Gson();
-    out.print(gson.toJson(webUserWithRoles).trim());
+    out.print(gson.toJson(parkWithRoles).trim());
 
       out.write('\n');
     } catch (Throwable t) {
