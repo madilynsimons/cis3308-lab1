@@ -39,35 +39,75 @@
             }
         } // logonFind
 
-            public static StringData findById(DbConn dbc, String id) {
+        // method delete returns "" (empty string) if the delete worked fine. Otherwise,
+        // it returns an error message.
+        public static String delete(String userId, DbConn dbc) {
 
-                StringData sd = new StringData();
-                try {
-                    String sql = "SELECT web_user_id, user_email, user_password, membership_fee, birthday, image, "
-                            + "web_user.user_role_id, user_role_type "
-                            + "FROM web_user, user_role WHERE web_user.user_role_id = user_role.user_role_id "
-                            + "AND web_user_id = ?";
+            if (userId == null) {
+                return "Error in modelwebUser.DbMods.delete: cannot delete web_user record because 'userId' is null";
+            }
 
-                    PreparedStatement stmt = dbc.getConn().prepareStatement(sql);
+            // This method assumes that the calling Web API (JSP page) has already confirmed
+            // that the database connection is OK. BUT if not, some reasonable exception should
+            // be thrown by the DB and passed back anyway...
+            String result = ""; // empty string result means the delete worked fine.
+            try {
 
-                    // Encode the id (that the user typed in) into the select statement, into the first
-                    // (and only) ?
-                    stmt.setString(1, id);
+                String sql = "DELETE FROM web_user WHERE web_user_id = ?";
 
-                    ResultSet results = stmt.executeQuery();
-                    if (results.next()) { // id is unique, one or zero records expected in result set
-                        sd = new StringData(results);
-                    } else {
-                        sd.errorMsg = "The database has no Web User Record with id " + id;
-                    }
-                    results.close();
-                    stmt.close();
-                } catch (Exception e) {
-                    sd.errorMsg = "Exception thrown in model.webUser.DbMods.findById(): " + e.getMessage();
+                // This line compiles the SQL statement (checking for syntax errors against your DB).
+                PreparedStatement pStatement = dbc.getConn().prepareStatement(sql);
+
+                // Encode user data into the prepared statement.
+                pStatement.setString(1, userId);
+
+                int numRowsDeleted = pStatement.executeUpdate();
+
+                if (numRowsDeleted == 0) {
+                    result = "Record not deleted - there was no record with web_user_id " + userId;
+                } else if (numRowsDeleted > 1) {
+                    result = "Programmer Error: > 1 record deleted. Did you forget the WHERE clause?";
                 }
-                return sd;
 
-            } // findById
+            } catch (Exception e) {
+                result = "Exception thrown in model.webUser.DbMods.delete(): " + e.getMessage();
+                if (result.contains("foreign key")) {
+                    result = "Cannot delete this Web User because data references them.";
+                }
+            }
+
+            return result;
+        }
+
+        public static StringData findById(DbConn dbc, String id) {
+
+          StringData sd = new StringData();
+          try {
+            String sql = "SELECT web_user_id, user_email, user_password, membership_fee, birthday, image, "
+              + "web_user.user_role_id, user_role_type "
+              + "FROM web_user, user_role WHERE web_user.user_role_id = user_role.user_role_id "
+              + "AND web_user_id = ?";
+
+            PreparedStatement stmt = dbc.getConn().prepareStatement(sql);
+
+            // Encode the id (that the user typed in) into the select statement, into the first
+            // (and only) ?
+            stmt.setString(1, id);
+
+            ResultSet results = stmt.executeQuery();
+            if (results.next()) { // id is unique, one or zero records expected in result set
+              sd = new StringData(results);
+            } else {
+              sd.errorMsg = "The database has no Web User Record with id " + id;
+            }
+              results.close();
+              stmt.close();
+          } catch (Exception e) {
+            sd.errorMsg = "Exception thrown in model.webUser.DbMods.findById(): " + e.getMessage();
+          }
+          return sd;
+
+        } // findById
 
 
             /*

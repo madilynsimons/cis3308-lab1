@@ -148,6 +148,34 @@ var users = {};
         } // end of function success
     }; // end of function users.list
 
+    users.delete = function (userId, icon) {
+        if (confirm("Do you really want to delete user " + userId + "? ")) {
+            console.log("icon that was passed into JS function is printed on next line");
+            console.log(icon);
+
+            ajax2({
+                url: "webAPIs/deleteUserAPI.jsp?deleteId=" + userId,
+                successFn: success,
+                errorId: "deleteErrorMsgId"
+            });
+
+            function success(obj) {
+                if (obj.errorMsg.length === 0) {
+                    obj.errorMsg = "Web User " + userId + " was deleted!";
+
+                    // icon's parent is cell whose parent is row
+                    var dataRow = icon.parentNode.parentNode;
+                    var rowIndex = dataRow.rowIndex - 1; // adjust for oolumn header row?
+                    var dataTable = dataRow.parentNode;
+                    dataTable.deleteRow(rowIndex);
+                }
+                document.getElementById("deleteErrorMsgId").innerHTML = obj.errorMsg;
+            }
+        }
+
+    }; // end of users.delete
+
+
     // this code called by insertUI and updateUI -- shared common code.
     function createInsertUpdateArea (isUpdate, targetId) {
 

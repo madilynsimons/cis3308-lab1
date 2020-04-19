@@ -37,6 +37,45 @@
 
             } // findById
 
+            // method delete returns "" (empty string) if the delete worked fine. Otherwise,
+            // it returns an error message.
+            public static String delete(String parkId, DbConn dbc) {
+
+                if (parkId == null) {
+                    return "Error in model.park.DbMods.delete: cannot delete web_user record because 'parkId' is null";
+                }
+
+                // This method assumes that the calling Web API (JSP page) has already confirmed
+                // that the database connection is OK. BUT if not, some reasonable exception should
+                // be thrown by the DB and passed back anyway...
+                String result = ""; // empty string result means the delete worked fine.
+                try {
+
+                    String sql = "DELETE FROM park WHERE park_id = ?";
+
+                    // This line compiles the SQL statement (checking for syntax errors against your DB).
+                    PreparedStatement pStatement = dbc.getConn().prepareStatement(sql);
+
+                    // Encode user data into the prepared statement.
+                    pStatement.setString(1, parkId);
+
+                    int numRowsDeleted = pStatement.executeUpdate();
+
+                    if (numRowsDeleted == 0) {
+                        result = "Record not deleted - there was no record with park_id " + parkId;
+                    } else if (numRowsDeleted > 1) {
+                        result = "Programmer Error: > 1 record deleted. Did you forget the WHERE clause?";
+                    }
+
+                } catch (Exception e) {
+                    result = "Exception thrown in model.park.DbMods.delete(): " + e.getMessage();
+                    if (result.contains("foreign key")) {
+                        result = "Cannot delete this Web User because data references them.";
+                    }
+                }
+
+                return result;
+            }
 
             /*
             Returns a "StringData" object that is full of field level validation

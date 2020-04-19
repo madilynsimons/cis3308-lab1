@@ -149,6 +149,33 @@ var parks = {};
         } // end of function success
     }; // end of function parks.list
 
+    parks.delete = function (parkId, icon) {
+        if (confirm("Do you really want to delete park " + parkId + "? ")) {
+            console.log("icon that was passed into JS function is printed on next line");
+            console.log(icon);
+
+            ajax2({
+                url: "webAPIs/deleteParkAPI.jsp?deleteId=" + parkId,
+                successFn: success,
+                errorId: "deleteErrorMsgId"
+            });
+
+            function success(obj) {
+                if (obj.errorMsg.length === 0) {
+                    obj.errorMsg = "Park  " + parkId + " was deleted!";
+
+                    // icon's parent is cell whose parent is row
+                    var dataRow = icon.parentNode.parentNode;
+                    var rowIndex = dataRow.rowIndex - 1; // adjust for oolumn header row?
+                    var dataTable = dataRow.parentNode;
+                    dataTable.deleteRow(rowIndex);
+                }
+                document.getElementById("deleteErrorMsgId").innerHTML = obj.errorMsg;
+            }
+        }
+
+    }; // end of parks.delete
+
     // this code called by insertUI and updateUI -- shared common code.
     function createInsertUpdateArea (isUpdate, targetId) {
 
