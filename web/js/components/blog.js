@@ -1,5 +1,6 @@
 function blog(id){
     var content = `
+        <div id="blog9" style="margin: 10px"></div>
         <div id="blog8" style="margin: 10px"></div>
         <div id="blog7" style="margin: 10px"></div>
         <div id="blog6" style="margin: 10px"></div>
@@ -313,5 +314,29 @@ function blog(id){
 
     blog8.appendChild(blog8body);
 
+    var blog9 = document.getElementById("blog9");
+    var title9 = document.createElement("h2");
+    title9.innerHTML = "HW9: Delete Table Entries";
+    blog9.appendChild(title9);
 
+    var blog9body = document.createElement("p");
+
+    blog9body.innerHTML = "The easiest part of this assignment was modifying DbMods"
+        + " and writing delete APIs.  The logic is straightforward and I now feel"
+        + " very comfortable using MySQL and server-side code.  Therefore, I felt"
+        + " confident writing this code since I've become very familiar with these"
+        + " concepts."
+        + "<br> <br>"
+        + "The most challenging part of this assignment was editting the table"
+        + " in users.js and parks.js using the tableBuilder.  It can be difficult"
+        + " to visualize how a table is going to come out and look using JavaScript"
+        + " so it can be a little tough to make aesthetic changes to a given component."
+        + "<br> <br>"
+        + "This assignment made me more familiar with the SQL DELETE statement as well"
+        + " as creating custom divs in JavaScript.  I had to use the DELETE statement"
+        + " in DbMods to delete entries from my tables.  I also had to further customize"
+        + " the tables using Javascript.";
+
+
+    blog9.appendChild(blog9body);
 }
